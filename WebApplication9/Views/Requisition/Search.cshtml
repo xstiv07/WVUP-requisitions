@@ -1,0 +1,81 @@
+﻿@model WebApplication9.Models.SearchViewModel
+
+<div>
+    <span id="searchFormToggle">Show/Hide filter</span>
+    @using (Html.BeginForm("SearchResult", "Requisition", FormMethod.Get, new { @class = "search-form", @id = "search-form" }))
+    {
+        <div class="col-2">
+            @Html.LabelFor(model => model.AccountNumber, new { @class = "search-label" })
+            @Html.DropDownListFor(model => model.AccountNumber, new SelectList(ViewBag.Accounts, "Id", "String"), "Please Select", new { @class = "custom-input  form-control" })
+
+            <div class="col-2-1">
+                @Html.LabelFor(model => model.AccountName, new { @class = "search-label" })
+                @Html.DropDownListFor(model => model.AccountName, new SelectList(ViewBag.Accounts, "Id", "Name"), "Please Select", new { @class = "custom-input  form-control" })
+            </div>
+        </div>
+
+        <div class="col-2">
+            @Html.LabelFor(model => model.FundNumber, new { @class = "search-label" })
+            @Html.DropDownListFor(model => model.FundNumber, new SelectList(ViewBag.Funds, "Id", "Number"), "Please Select", new { @class = "custom-input  form-control" })
+
+            <div class="col-2-1">
+                @Html.LabelFor(model => model.DivisionName, new { @class = "search-label" })
+                @Html.DropDownListFor(model => model.DivisionName, new SelectList(ViewBag.Divisions, "Id", "Name"), "Please Select", new { @class = "custom-input  form-control" })
+            </div>
+        </div>
+
+        <div class="col-2">
+            @Html.LabelFor(model => model.DepartmentId, new { @class = "search-label" })
+            @Html.DropDownListFor(model => model.DepartmentId, new SelectList(ViewBag.Departments, "Id", "Name"), "Please Select", new { @class = "custom-input  form-control" })
+
+            <div class="col-2-1">
+                @Html.LabelFor(model => model.Status, new { @class = "search-label" })
+                @Html.EditorFor(model => model.Status)
+            </div>
+        </div>
+
+        <div class="col-2">
+            @Html.LabelFor(model => model.RequisitionID, new { @class = "search-label" })
+            @Html.TextBoxFor(model => model.RequisitionID, new { @class = "custom-input form-control inp-b" })
+
+            <div class="col-2-1">
+                @Html.LabelFor(model => model.RequisitionedBy, new { @class = "search-label" })
+                @Html.TextBoxFor(model => model.RequisitionedBy, new { @class = "custom-input form-control inp-b" })
+            </div>
+        </div>
+
+        <div class="col-2">
+            @Html.LabelFor(model => model.TotalFrom, new { @class = "search-label" })
+            @Html.TextBoxFor(model => model.TotalFrom, new { @class = "custom-input form-control inp-b" })
+
+            <div class="col-2-1">
+                @Html.LabelFor(model => model.TotalUpTo, new { @class = "search-label" })
+                @Html.TextBoxFor(model => model.TotalUpTo, new { @class = "custom-input form-control inp-b" })
+            </div>
+        </div>
+
+        <div class="col-2">
+            @Html.LabelFor(model => model.Date_Submitted_From, new { @class = "search-label" })
+            @Html.EditorFor(model => model.Date_Submitted_From)
+
+            <div class="col-2-1">
+                @Html.LabelFor(model => model.Date_Submitted_To, new { @class = "search-label" })
+                @Html.EditorFor(model => model.Date_Submitted_To)
+            </div>
+        </div>
+
+        <div style="float:right">
+            <input type="submit" id="search" value="Search" class="btn-mnu btn-default" />
+        </div>
+    }
+</div>
+
+<div id="results"></div>
+
+<script type="text/javascript" src="~/Scripts/_js_Search.js"></script>
+<script type="text/javascript" src="~/Scripts/_js_DatePicker.js"></script>
+<script>
+    $('#searchFormToggle').click(function() {
+        $("#search-form").slideToggle('fast');
+    });
+</script>

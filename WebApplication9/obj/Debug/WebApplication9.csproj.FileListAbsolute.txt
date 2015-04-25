@@ -1,0 +1,134 @@
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\obj\Debug\WebApplication9.csprojResolveAssemblyReference.cache
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\WebApplication9.dll.config
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\WebApplication9.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\WebApplication9.pdb
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Antlr3.Runtime.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\EntityFramework.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\EntityFramework.SqlServer.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.Core.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.Owin.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Host.SystemWeb.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Cookies.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Facebook.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Google.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.OAuth.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Twitter.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Web.Infrastructure.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Newtonsoft.Json.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Owin.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.Helpers.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.Mvc.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.Optimization.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.Razor.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.WebPages.Deployment.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.WebPages.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.WebPages.Razor.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\WebGrease.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Antlr3.Runtime.pdb
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\EntityFramework.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\EntityFramework.SqlServer.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.Core.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.Owin.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Host.SystemWeb.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Cookies.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Facebook.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Google.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.OAuth.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Twitter.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Newtonsoft.Json.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.Helpers.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.Mvc.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.Optimization.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.Razor.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.WebPages.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.WebPages.Deployment.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\System.Web.WebPages.Razor.xml
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\obj\Debug\WebApplication9.dll
+c:\users\stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\obj\Debug\WebApplication9.pdb
+C:\Users\Stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\Mvc.JQuery.Datatables.dll
+C:\Users\Stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\WebApplication9.Data.dll
+C:\Users\Stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\WebApplication9.Data.pdb
+C:\Users\Stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\PagedList.dll
+C:\Users\Stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\PagedList.Mvc.dll
+C:\Users\Stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\PagedList.xml
+C:\Users\Stas\documents\visual studio 2013\Projects\WebApplication9\WebApplication9\bin\PagedList.Mvc.xml
+C:\Users\Stas\Documents\Visual Studio 2013\Projects\WebApplication9\WebApplication9\bin\Postal.dll
+C:\Users\Stas\Documents\Visual Studio 2013\Projects\WebApplication9\WebApplication9\bin\RazorEngine.dll
+C:\Users\Stas\Documents\Visual Studio 2013\Projects\WebApplication9\WebApplication9\bin\Postal.xml
+C:\Users\Stas\Documents\Visual Studio 2013\Projects\WebApplication9\WebApplication9\bin\RazorEngine.pdb
+C:\Users\Stas\Documents\Visual Studio 2013\Projects\WebApplication9\WebApplication9\bin\RazorEngine.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\WebApplication9.dll.config
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\WebApplication9.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\WebApplication9.pdb
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Antlr3.Runtime.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\EntityFramework.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\EntityFramework.SqlServer.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Mvc.JQuery.Datatables.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Newtonsoft.Json.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Owin.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\PagedList.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\PagedList.Mvc.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Postal.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\RazorEngine.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.Helpers.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.Mvc.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.Optimization.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.Razor.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.WebPages.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.WebPages.Razor.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\WebApplication9.Data.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\WebGrease.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\WebApplication9.Data.pdb
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Antlr3.Runtime.pdb
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\EntityFramework.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\EntityFramework.SqlServer.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Newtonsoft.Json.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\PagedList.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\PagedList.Mvc.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\Postal.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\RazorEngine.pdb
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\RazorEngine.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.Helpers.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.Mvc.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.Optimization.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.Razor.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.WebPages.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\bin\System.Web.WebPages.Razor.xml
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\obj\Debug\WebApplication9.csprojResolveAssemblyReference.cache
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\obj\Debug\WebApplication9.dll
+C:\Users\Stas\Desktop\WebApplication9\WebApplication9\obj\Debug\WebApplication9.pdb

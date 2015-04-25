@@ -1,0 +1,1083 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Project_Requisition1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="FundId" Type="int" />
+          <Property Name="String" Type="varchar(max)" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="DivisionId" Type="int" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DivisionId" Type="int" />
+          <Property Name="ManagerId" Type="bigint" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="FileName" Type="varchar(max)" Nullable="false" />
+          <Property Name="FileLink" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fund">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequisitionId" Type="bigint" />
+          <Property Name="ItemCategoryId" Type="int" />
+          <Property Name="Just_Statement" Type="varchar(max)" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="BuyFrom" Type="varchar(max)" />
+          <Property Name="Unique" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ItemCategory">
+          <Key>
+            <PropertyRef Name="ItemCategoryId" />
+          </Key>
+          <Property Name="ItemCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Number" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReqAdd">
+          <Key>
+            <PropertyRef Name="ExtrasId" />
+          </Key>
+          <Property Name="ExtrasId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequisitionId" Type="bigint" />
+          <Property Name="Comments" Type="varchar(max)" />
+          <Property Name="Date_Ordered" Type="date" />
+          <Property Name="CC_Holder_Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Purchase_Order_Num" Type="varchar" MaxLength="50" />
+          <Property Name="Date_Expected_Delivery" Type="date" />
+        </EntityType>
+        <EntityType Name="Requisition">
+          <Key>
+            <PropertyRef Name="RequisitionId" />
+          </Key>
+          <Property Name="RequisitionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="bigint" />
+          <Property Name="AccountId" Type="int" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="Requisitioned_By" Type="varchar" MaxLength="50" />
+          <Property Name="Explanation" Type="varchar(max)" />
+          <Property Name="Date_Created" Type="datetime" Nullable="false" />
+          <Property Name="Decision_By" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CFO_approval" Type="bit" />
+          <Property Name="CFO_Explanation" Type="varchar(max)" />
+          <Property Name="CFO_Decision_By" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="500" />
+          <Property Name="Date_Created" Type="datetime" />
+          <Property Name="IsLocked" Type="bit" Nullable="false" />
+          <Property Name="First_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Last_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime2" Precision="7" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRegistrationToken">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Token" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="RoleId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Account__Departm__73C51D7B">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Account__Divisio__0C90CB45">
+          <End Role="Division" Type="Self.Division" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Account__FundId__74B941B4">
+          <End Role="Fund" Type="Self.Fund" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fund">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="FundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__Divis__6E0C4425">
+          <End Role="Division" Type="Self.Division" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__Manag__6F00685E">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__File__ItemId__41F8B7BD">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+          <End Role="File" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__ItemCatego__3F1C4B12">
+          <End Role="ItemCategory" Type="Self.ItemCategory" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemCategory">
+              <PropertyRef Name="ItemCategoryId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="ItemCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__Requisitio__3E2826D9">
+          <End Role="Requisition" Type="Self.Requisition" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requisition">
+              <PropertyRef Name="RequisitionId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="RequisitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReqAdd__Requisit__3B4BBA2E">
+          <End Role="Requisition" Type="Self.Requisition" Multiplicity="0..1" />
+          <End Role="ReqAdd" Type="Self.ReqAdd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requisition">
+              <PropertyRef Name="RequisitionId" />
+            </Principal>
+            <Dependent Role="ReqAdd">
+              <PropertyRef Name="RequisitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Requisiti__Accou__3592E0D8">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Requisition" Type="Self.Requisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requisition">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Requisiti__Depar__36870511">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Requisition" Type="Self.Requisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requisition">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Requisiti__User___349EBC9F">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Requisition" Type="Self.Requisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requisition">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClaim_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Project_Requisition1ModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fund" EntityType="Self.Fund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemCategory" EntityType="Self.ItemCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReqAdd" EntityType="Self.ReqAdd" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requisition" EntityType="Self.Requisition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Account__Departm__73C51D7B" Association="Self.FK__Account__Departm__73C51D7B">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Account__Divisio__0C90CB45" Association="Self.FK__Account__Divisio__0C90CB45">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Account__FundId__74B941B4" Association="Self.FK__Account__FundId__74B941B4">
+            <End Role="Fund" EntitySet="Fund" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__Divis__6E0C4425" Association="Self.FK__Departmen__Divis__6E0C4425">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__Manag__6F00685E" Association="Self.FK__Departmen__Manag__6F00685E">
+            <End Role="User" EntitySet="User" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK__File__ItemId__41F8B7BD" Association="Self.FK__File__ItemId__41F8B7BD">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="File" EntitySet="File" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__ItemCatego__3F1C4B12" Association="Self.FK__Item__ItemCatego__3F1C4B12">
+            <End Role="ItemCategory" EntitySet="ItemCategory" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__Requisitio__3E2826D9" Association="Self.FK__Item__Requisitio__3E2826D9">
+            <End Role="Requisition" EntitySet="Requisition" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReqAdd__Requisit__3B4BBA2E" Association="Self.FK__ReqAdd__Requisit__3B4BBA2E">
+            <End Role="Requisition" EntitySet="Requisition" />
+            <End Role="ReqAdd" EntitySet="ReqAdd" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Requisiti__Accou__3592E0D8" Association="Self.FK__Requisiti__Accou__3592E0D8">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Requisition" EntitySet="Requisition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Requisiti__Depar__36870511" Association="Self.FK__Requisiti__Depar__36870511">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Requisition" EntitySet="Requisition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Requisiti__User___349EBC9F" Association="Self.FK__Requisiti__User___349EBC9F">
+            <End Role="User" EntitySet="User" />
+            <End Role="Requisition" EntitySet="Requisition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClaim_User" Association="Self.FK_UserClaim_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserClaim" EntitySet="UserClaim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_User" Association="Self.FK_UserLogin_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLogin" EntitySet="UserLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Project_Requisition1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Requisition1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departments" EntityType="Project_Requisition1Model.Department" />
+          <EntitySet Name="Divisions" EntityType="Project_Requisition1Model.Division" />
+          <EntitySet Name="Files" EntityType="Project_Requisition1Model.File" />
+          <EntitySet Name="Funds" EntityType="Project_Requisition1Model.Fund" />
+          <EntitySet Name="ItemCategories" EntityType="Project_Requisition1Model.ItemCategory" />
+          <EntitySet Name="ReqAdds" EntityType="Project_Requisition1Model.ReqAdd" />
+          <EntitySet Name="Roles" EntityType="Project_Requisition1Model.Role" />
+          <EntitySet Name="Users" EntityType="Project_Requisition1Model.User" />
+          <EntitySet Name="UserClaims" EntityType="Project_Requisition1Model.UserClaim" />
+          <EntitySet Name="UserLogins" EntityType="Project_Requisition1Model.UserLogin" />
+          <EntitySet Name="UserRegistrationTokens" EntityType="Project_Requisition1Model.UserRegistrationToken" />
+          <AssociationSet Name="FK__Departmen__Divis__6E0C4425" Association="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425">
+            <End Role="Division" EntitySet="Divisions" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__Manag__6F00685E" Association="Project_Requisition1Model.FK__Departmen__Manag__6F00685E">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClaim_User" Association="Project_Requisition1Model.FK_UserClaim_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserClaim" EntitySet="UserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_User" Association="Project_Requisition1Model.FK_UserLogin_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLogin" EntitySet="UserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="UserRole" Association="Project_Requisition1Model.UserRole">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Accounts" EntityType="Project_Requisition1Model.Account" />
+          <AssociationSet Name="FK__Account__Departm__73C51D7B" Association="Project_Requisition1Model.FK__Account__Departm__73C51D7B">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Account__Divisio__0C90CB45" Association="Project_Requisition1Model.FK__Account__Divisio__0C90CB45">
+            <End Role="Division" EntitySet="Divisions" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Account__FundId__74B941B4" Association="Project_Requisition1Model.FK__Account__FundId__74B941B4">
+            <End Role="Fund" EntitySet="Funds" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <EntitySet Name="Items" EntityType="Project_Requisition1Model.Item" />
+          <AssociationSet Name="FK__File__ItemId__05E3CDB6" Association="Project_Requisition1Model.FK__File__ItemId__05E3CDB6">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__ItemCatego__0307610B" Association="Project_Requisition1Model.FK__Item__ItemCatego__0307610B">
+            <End Role="ItemCategory" EntitySet="ItemCategories" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <EntitySet Name="Requisitions" EntityType="Project_Requisition1Model.Requisition" />
+          <AssociationSet Name="FK__Requisiti__Accou__3592E0D8" Association="Project_Requisition1Model.FK__Requisiti__Accou__3592E0D8">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Requisition" EntitySet="Requisitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Requisiti__Depar__36870511" Association="Project_Requisition1Model.FK__Requisiti__Depar__36870511">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Requisition" EntitySet="Requisitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__Requisitio__3E2826D9" Association="Project_Requisition1Model.FK__Item__Requisitio__3E2826D9">
+            <End Role="Requisition" EntitySet="Requisitions" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReqAdd__Requisit__3B4BBA2E" Association="Project_Requisition1Model.FK__ReqAdd__Requisit__3B4BBA2E">
+            <End Role="Requisition" EntitySet="Requisitions" />
+            <End Role="ReqAdd" EntitySet="ReqAdds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Requisiti__User___349EBC9F" Association="Project_Requisition1Model.FK__Requisiti__User___349EBC9F">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Requisition" EntitySet="Requisitions" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DivisionId" Type="Int32" />
+          <Property Name="ManagerId" Type="Int64" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Division" Relationship="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425" FromRole="Department" ToRole="Division" />
+          <NavigationProperty Name="User" Relationship="Project_Requisition1Model.FK__Departmen__Manag__6F00685E" FromRole="Department" ToRole="User" />
+          <NavigationProperty Name="Accounts" Relationship="Project_Requisition1Model.FK__Account__Departm__73C51D7B" FromRole="Department" ToRole="Account" />
+          <NavigationProperty Name="Requisitions" Relationship="Project_Requisition1Model.FK__Requisiti__Depar__36870511" FromRole="Department" ToRole="Requisition" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Departments" Relationship="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425" FromRole="Division" ToRole="Department" />
+          <NavigationProperty Name="Accounts" Relationship="Project_Requisition1Model.FK__Account__Divisio__0C90CB45" FromRole="Division" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileLink" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Item" Relationship="Project_Requisition1Model.FK__File__ItemId__05E3CDB6" FromRole="File" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Fund">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Accounts" Relationship="Project_Requisition1Model.FK__Account__FundId__74B941B4" FromRole="Fund" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="ItemCategory">
+          <Key>
+            <PropertyRef Name="ItemCategoryId" />
+          </Key>
+          <Property Name="ItemCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Items" Relationship="Project_Requisition1Model.FK__Item__ItemCatego__0307610B" FromRole="ItemCategory" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="ReqAdd">
+          <Key>
+            <PropertyRef Name="ExtrasId" />
+          </Key>
+          <Property Name="ExtrasId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequisitionId" Type="Int64" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Ordered" Type="DateTime" Precision="0" />
+          <Property Name="CC_Holder_Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Purchase_Order_Num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Expected_Delivery" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Requisition" Relationship="Project_Requisition1Model.FK__ReqAdd__Requisit__3B4BBA2E" FromRole="ReqAdd" ToRole="Requisition" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Project_Requisition1Model.UserRole" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Created" Type="DateTime" Precision="3" />
+          <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+          <Property Name="First_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Last_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="7" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departments" Relationship="Project_Requisition1Model.FK__Departmen__Manag__6F00685E" FromRole="User" ToRole="Department" />
+          <NavigationProperty Name="UserClaims" Relationship="Project_Requisition1Model.FK_UserClaim_User" FromRole="User" ToRole="UserClaim" />
+          <NavigationProperty Name="UserLogins" Relationship="Project_Requisition1Model.FK_UserLogin_User" FromRole="User" ToRole="UserLogin" />
+          <NavigationProperty Name="Roles" Relationship="Project_Requisition1Model.UserRole" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Requisitions" Relationship="Project_Requisition1Model.FK__Requisiti__User___349EBC9F" FromRole="User" ToRole="Requisition" />
+        </EntityType>
+        <EntityType Name="UserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Project_Requisition1Model.FK_UserClaim_User" FromRole="UserClaim" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Project_Requisition1Model.FK_UserLogin_User" FromRole="UserLogin" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRegistrationToken">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__Departmen__Divis__6E0C4425">
+          <End Type="Project_Requisition1Model.Division" Role="Division" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__Manag__6F00685E">
+          <End Type="Project_Requisition1Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClaim_User">
+          <End Type="Project_Requisition1Model.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Project_Requisition1Model.UserClaim" Role="UserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_User">
+          <End Type="Project_Requisition1Model.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Project_Requisition1Model.UserLogin" Role="UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserRole">
+          <End Type="Project_Requisition1Model.Role" Role="Role" Multiplicity="*" />
+          <End Type="Project_Requisition1Model.User" Role="User" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="FundId" Type="Int32" />
+          <Property Name="String" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DivisionId" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="Project_Requisition1Model.FK__Account__Departm__73C51D7B" FromRole="Account" ToRole="Department" />
+          <NavigationProperty Name="Division" Relationship="Project_Requisition1Model.FK__Account__Divisio__0C90CB45" FromRole="Account" ToRole="Division" />
+          <NavigationProperty Name="Fund" Relationship="Project_Requisition1Model.FK__Account__FundId__74B941B4" FromRole="Account" ToRole="Fund" />
+          <NavigationProperty Name="Requisitions" Relationship="Project_Requisition1Model.FK__Requisiti__Accou__3592E0D8" FromRole="Account" ToRole="Requisition" />
+        </EntityType>
+        <Association Name="FK__Account__Departm__73C51D7B">
+          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Account__Divisio__0C90CB45">
+          <End Type="Project_Requisition1Model.Division" Role="Division" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Account__FundId__74B941B4">
+          <End Type="Project_Requisition1Model.Fund" Role="Fund" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fund">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="FundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequisitionId" Type="Int64" />
+          <Property Name="ItemCategoryId" Type="Int32" />
+          <Property Name="Just_Statement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Unique" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BuyFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Files" Relationship="Project_Requisition1Model.FK__File__ItemId__05E3CDB6" FromRole="Item" ToRole="File" />
+          <NavigationProperty Name="ItemCategory" Relationship="Project_Requisition1Model.FK__Item__ItemCatego__0307610B" FromRole="Item" ToRole="ItemCategory" />
+          <NavigationProperty Name="Requisition" Relationship="Project_Requisition1Model.FK__Item__Requisitio__3E2826D9" FromRole="Item" ToRole="Requisition" />
+        </EntityType>
+        <Association Name="FK__File__ItemId__05E3CDB6">
+          <End Type="Project_Requisition1Model.Item" Role="Item" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.File" Role="File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__ItemCatego__0307610B">
+          <End Type="Project_Requisition1Model.ItemCategory" Role="ItemCategory" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemCategory">
+              <PropertyRef Name="ItemCategoryId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="ItemCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="StatusEnum" a:ExternalTypeName="WebApplication9.Data.Helpers.StatusEnum" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EntityType Name="Requisition">
+          <Key>
+            <PropertyRef Name="RequisitionId" />
+          </Key>
+          <Property Name="RequisitionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int64" />
+          <Property Name="AccountId" Type="Int32" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="Requisitioned_By" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Explanation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Decision_By" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Project_Requisition1Model.StatusEnum" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CFO_approval" Type="Boolean" />
+          <Property Name="CFO_Explanation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CFO_Decision_By" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="Project_Requisition1Model.FK__Requisiti__Accou__3592E0D8" FromRole="Requisition" ToRole="Account" />
+          <NavigationProperty Name="Department" Relationship="Project_Requisition1Model.FK__Requisiti__Depar__36870511" FromRole="Requisition" ToRole="Department" />
+          <NavigationProperty Name="Items" Relationship="Project_Requisition1Model.FK__Item__Requisitio__3E2826D9" FromRole="Requisition" ToRole="Item" />
+          <NavigationProperty Name="ReqAdds" Relationship="Project_Requisition1Model.FK__ReqAdd__Requisit__3B4BBA2E" FromRole="Requisition" ToRole="ReqAdd" />
+          <NavigationProperty Name="User" Relationship="Project_Requisition1Model.FK__Requisiti__User___349EBC9F" FromRole="Requisition" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Requisiti__Accou__3592E0D8">
+          <End Type="Project_Requisition1Model.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Requisition" Role="Requisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requisition">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Requisiti__Depar__36870511">
+          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Requisition" Role="Requisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requisition">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__Requisitio__3E2826D9">
+          <End Type="Project_Requisition1Model.Requisition" Role="Requisition" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requisition">
+              <PropertyRef Name="RequisitionId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="RequisitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReqAdd__Requisit__3B4BBA2E">
+          <End Type="Project_Requisition1Model.Requisition" Role="Requisition" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.ReqAdd" Role="ReqAdd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requisition">
+              <PropertyRef Name="RequisitionId" />
+            </Principal>
+            <Dependent Role="ReqAdd">
+              <PropertyRef Name="RequisitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Requisiti__User___349EBC9F">
+          <End Type="Project_Requisition1Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Requisition" Role="Requisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requisition">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Project_Requisition1ModelStoreContainer" CdmEntityContainer="Requisition1Entities">
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Divisions">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.Division">
+              <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.File">
+              <MappingFragment StoreEntitySet="File">
+                <ScalarProperty Name="FileLink" ColumnName="FileLink" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funds">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.Fund">
+              <MappingFragment StoreEntitySet="Fund">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemCategories">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.ItemCategory">
+              <MappingFragment StoreEntitySet="ItemCategory">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ItemCategoryId" ColumnName="ItemCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReqAdds">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.ReqAdd">
+              <MappingFragment StoreEntitySet="ReqAdd">
+                <ScalarProperty Name="Date_Expected_Delivery" ColumnName="Date_Expected_Delivery" />
+                <ScalarProperty Name="Purchase_Order_Num" ColumnName="Purchase_Order_Num" />
+                <ScalarProperty Name="CC_Holder_Name" ColumnName="CC_Holder_Name" />
+                <ScalarProperty Name="Date_Ordered" ColumnName="Date_Ordered" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="RequisitionId" ColumnName="RequisitionId" />
+                <ScalarProperty Name="ExtrasId" ColumnName="ExtrasId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserClaims">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.UserClaim">
+              <MappingFragment StoreEntitySet="UserClaim">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRegistrationTokens">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.UserRegistrationToken">
+              <MappingFragment StoreEntitySet="UserRegistrationToken">
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserRole" TypeName="Project_Requisition1Model.UserRole" StoreEntitySet="UserRole">
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="String" ColumnName="String" />
+                <ScalarProperty Name="FundId" ColumnName="FundId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="BuyFrom" ColumnName="BuyFrom" />
+                <ScalarProperty Name="Unique" ColumnName="Unique" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Just_Statement" ColumnName="Just_Statement" />
+                <ScalarProperty Name="ItemCategoryId" ColumnName="ItemCategoryId" />
+                <ScalarProperty Name="RequisitionId" ColumnName="RequisitionId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requisitions">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.Requisition">
+              <MappingFragment StoreEntitySet="Requisition">
+                <ScalarProperty Name="CFO_Decision_By" ColumnName="CFO_Decision_By" />
+                <ScalarProperty Name="CFO_Explanation" ColumnName="CFO_Explanation" />
+                <ScalarProperty Name="CFO_approval" ColumnName="CFO_approval" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Decision_By" ColumnName="Decision_By" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+                <ScalarProperty Name="Requisitioned_By" ColumnName="Requisitioned_By" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="RequisitionId" ColumnName="RequisitionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,74 @@
+﻿@model WebApplication9.Data.Requisition
+
+<div class="user-search-block">
+    @if (Model.CFO_Explanation != null)
+    {
+        <div class="left rmi row-main-inline">
+            @Html.LabelFor(model => model.CFO_Explanation)
+            <div class="requisition-detail-content">
+                @Html.DisplayFor(model => model.CFO_Explanation)
+            </div>
+        </div>
+        <div class="left rmi row-main-inline">
+            @Html.LabelFor(model => model.CFO_Decision_By)
+            <div class="requisition-detail-content">
+                @Html.DisplayFor(model => model.CFO_Decision_By)
+            </div>
+        </div>
+    }
+    @if (Model.Explanation != null)
+    {
+        <div class="left rmi row-main-inline">
+            @Html.LabelFor(model => model.Explanation)
+            <div class="requisition-detail-content">
+                @Html.DisplayFor(model => model.Explanation)
+            </div>
+        </div>
+        <div class="left rmi row-main-inline">
+            @Html.LabelFor(model => model.Decision_By)
+            <div class="requisition-detail-content">
+                @Html.DisplayFor(model => model.Decision_By)
+            </div>
+        </div>
+    }
+    @foreach (var extra in Model.ReqAdds)
+    {
+        if (extra != null)
+        {
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => extra.Date_Ordered)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => extra.Date_Ordered)
+                </div>
+            </div>
+
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => extra.CC_Holder_Name)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => extra.CC_Holder_Name)
+                </div>
+            </div>
+
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => extra.Purchase_Order_Num)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => extra.Purchase_Order_Num)
+                </div>
+            </div>
+
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => extra.Date_Expected_Delivery)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => extra.Date_Expected_Delivery)
+                </div>
+            </div>
+
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => extra.Comments)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => extra.Comments)
+                </div>
+            </div>
+        }
+    }
+</div>

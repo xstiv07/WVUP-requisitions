@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <div class="logout-menu-wrap">
+        <nav class="logout-menu">
+            <ul class="clearfix">
+                <li>
+                    <a href='@Url.Action("Index", "Manage")'>
+                        @User.Identity.Name
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href=javascript:document.getElementById('logoutForm').submit()>
+                                    Sign Out
+                                </a>
+                            }
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}

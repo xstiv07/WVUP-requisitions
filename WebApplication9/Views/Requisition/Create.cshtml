@@ -1,0 +1,150 @@
+﻿@model WebApplication9.Data.Requisition
+@{ ViewBag.Title = "Create Requisition"; }
+
+
+@using (Html.BeginForm("Create", "Requisition", FormMethod.Post,
+      new { enctype = "multipart/form-data", @id = "mainForm" }))
+{
+    <table class="flatTable">
+        <tr class="titleTr">
+            <td colspan="5">TOTAL <span id="cool">$0</span></td>
+        </tr>
+        <tr>
+            <td class="headingTr">
+                <span class="required">*</span>@Html.LabelFor(model => model.Account.Department.Division.Name)
+                <div>
+                    @Html.DropDownList("Divisions", new SelectList(ViewBag.Divisions, "Id", "Name"), "---Please Select", new { @class = "custom-input  form-control", @id = "division" })
+                </div>
+            </td>
+
+            <td class="headingTr department">
+                <span class="required">*</span>@Html.LabelFor(model => model.Account.Department.Name)
+                <div>
+                    @Html.DropDownListFor(model => model.DepartmentId, new SelectList(String.Empty, "Value", "Text"), "", new { @class = "custom-input  form-control", @id = "department" })
+                    @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger valid" })
+                </div>
+            </td>
+            <td class="headingTr account">
+                <span class="required">*</span>@Html.LabelFor(model => model.Account.Name)
+                <div>
+                    @Html.DropDownListFor(model => model.AccountId, new SelectList(String.Empty, "Value", "Text"), "", new { @class = "custom-input  form-control", @id = "account" })
+                    @Html.ValidationMessageFor(model => model.AccountId, "", new { @class = "text-danger valid" })
+                </div>
+
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <div id="itemEditor">
+        @if (Model.Items.Count <= 1)
+        {
+            Html.RenderPartial("ItemEntryEditor", new WebApplication9.Data.Item());
+        }
+        else
+        {
+            foreach (var item in Model.Items)
+            {
+                Html.RenderPartial("ItemEntryEditor", item);
+            }
+        }
+    </div>
+
+    <div id="addAnother" class="btn-add-item btn-mnu">Add Item</div>
+
+    <div id="reqSubmitBlock">
+        <input type="submit" value="Submit" id="proceed" class="btn-mnu btn-default" />
+
+        <a href='@Url.Action("MyRequisitions", "Requisition")'>
+            <span class="btn-mnu btn-custom" id="cancel">Cancel</span>
+        </a>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        var errorMsg = 'Something failed, please try again';
+        $("#division").change(function () {
+            $("#department").empty();
+            $("#account").empty();
+            if ($("#division").val() != "")
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDepartments")',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('.spinner').fadeIn('slow')
+                    },
+                    data: {
+                        id: $("#division").val()
+                    },
+                    success: function (departments) {
+                        $("#department").append('<option value="">---Please Select</option>');
+                        $.each(departments, function (i, department) {
+                            $("#department")
+                                .append('<option value="' + department.Value + '">' + department.Text + '</option>')
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        $('.spinner').fadeOut('slow')
+                        $('.ajax-message').text(errorMsg);
+                        $('.ajax-message').css('backgroundColor', '#F1A9A0');
+                        $('.ajax-message').css('color', 'white');
+                        $('.ajax-message').fadeIn('slow').delay(5000).fadeOut('slow');
+                    },
+                    complete: function () {
+                        $('.spinner').fadeOut('slow')
+                    }
+                });
+            }
+            return false;
+        });
+
+        $("#department").change(function () {
+            $("#account").empty();
+            if ($("#department").val() != "")
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetAccounts")',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('.spinner').fadeIn('slow')
+                    },
+                    data: {
+                        id: $("#department").val()
+                    },
+                    success: function (accounts) {
+                        $("#account").append('<option value="">---Please Select</option>');
+                        $.each(accounts, function (i, account) {
+                            $("#account")
+                                .append('<option value="' + account.Value + '">' + account.Text + '</option>')
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        $('.spinner').fadeOut('slow')
+                        $('.ajax-message').text(errorMsg);
+                        $('.ajax-message').css('backgroundColor', '#F1A9A0');
+                        $('.ajax-message').css('color', 'white');
+                        $('.ajax-message').fadeIn('slow').delay(5000).fadeOut('slow');
+                    },
+                    complete: function () {
+                        $('.spinner').fadeOut('slow')
+                    }
+                });
+            }
+            
+            return false;
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/requisition-scripts")
+    @Scripts.Render("~/bundles/jqueryval")
+}

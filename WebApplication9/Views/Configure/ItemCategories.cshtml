@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebApplication9.Data.ItemCategory>
+@Styles.Render("~/Content/datatables")
+
+<table class="data-table display" id="data-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th class="datatable-nosort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditItemCategory", new { id = item.ItemCategoryId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="configure-control">
+    <a href="@Url.Action("CreateItemCategory")">
+        <span>
+            <span class="btn-mnu btn-default">New Category</span>
+        </span>
+    </a>
+
+    <a href="@Url.Action("Index")">
+        <span>
+            <span class="btn-mnu btn-custom">Back To List</span>
+        </span>
+    </a>
+</div>
+
+@Scripts.Render("~/bundles/datatables")
+<script>
+    $(document).ready(function () {
+        $('#data-table').DataTable({
+            columnDefs: [{
+                targets: "datatable-nosort",
+                orderable: false
+            }]
+        });
+    });
+</script>

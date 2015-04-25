@@ -1,0 +1,43 @@
+﻿@model WebApplication9.Data.Fund
+
+@{
+    ViewBag.Title = "Create Fund";
+}
+
+<h2>Create Fund</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="configure-create-account">
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Number, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextBoxFor(model => model.Number, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="configure-control">
+            <span>
+                <input type="submit" value="Create" class="btn-mnu btn-default" />
+            </span>
+            <a href="@Url.Action("Funds")">
+                <span>
+                    <span class="btn-mnu btn-custom">Back To List</span>
+                </span>
+            </a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

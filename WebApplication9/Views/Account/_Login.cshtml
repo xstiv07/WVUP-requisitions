@@ -1,0 +1,38 @@
+﻿@model IdentitySample.Models.LoginViewModel
+
+<section id="loginForm">
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off" }))
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="box">
+            <h4>SIGN IN</h4>
+            <p class="register-description">If you have an account with us, log in using your email address.</p>
+            <div class="login-aligner">
+                @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+
+                <span class="form-input">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "inp-b", autocomplete = "off", spellcheck = "false" })
+                </span>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="login-aligner">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+
+                <span class="form-input">
+                    @Html.PasswordFor(m => m.Password, new { @class = "inp-b" })
+                </span>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="checkbox">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "login-checkbox" })
+            </div>
+            @if (Request.Form.AllKeys.Contains("login"))
+            {
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            }
+            <input type="submit" value="Sign in" name="login" class="btn-mnu btn-default" />
+        </div>
+    }
+</section>

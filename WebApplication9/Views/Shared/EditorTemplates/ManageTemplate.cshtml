@@ -1,0 +1,44 @@
+﻿@model PagedList.IPagedList<WebApplication9.Data.Requisition>
+@using WebApplication9.Data.Helpers
+
+@foreach (var requisition in Model)
+{
+    <div class="review-block padding" id="blk-@requisition.RequisitionId">
+        @if (requisition.Status != StatusEnum.Void)
+        {
+            @Html.ActionLink("Void", "Void", "Requisition", new { id = requisition.RequisitionId }, new { @class = "requisition-void" });
+        }
+        @Html.EditorFor(model => requisition)
+
+        <div class="user-explanation-block">
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => requisition.Explanation, new { @class = "control-label" })
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => requisition.Explanation)
+                </div>
+            </div>
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => requisition.Decision_By, new { @class = "control-label" })
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => requisition.Decision_By)
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-box">
+            @using (Ajax.BeginForm("Manage", "Requisition", new { id = requisition.RequisitionId },
+                    new AjaxOptions
+                    {
+                        OnBegin = "SetSpinner",
+                        OnSuccess = "SetCompleted(" + requisition.RequisitionId + ")",
+                        OnFailure = "Failure"
+                    }))
+            {
+                Html.RenderPartial("Process", new WebApplication9.Data.ReqAdd());
+                <div style="float:right">
+                    <input type="submit" value="Process" id="proceed" class="btn-mnu btn-default" />
+                </div>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,45 @@
+﻿@model WebApplication9.Data.Division
+
+@{
+    ViewBag.Title = "Create Division";
+}
+
+<h2>Create Division</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true)
+
+        <div class="configure-create-account">
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="configure-control">
+            <span>
+                <input type="submit" value="Create" class="btn-mnu btn-default" />
+            </span>
+            <a href="@Url.Action("Divisions")">
+                <span>
+                    <span class="btn-mnu btn-custom">Back To List</span>
+                </span>
+            </a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

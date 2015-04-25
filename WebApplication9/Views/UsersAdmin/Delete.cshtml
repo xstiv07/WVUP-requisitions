@@ -1,0 +1,26 @@
+﻿@model WebApplication9.Data.MyUser
+
+@{
+    ViewBag.Title = "Delete User";
+}
+
+<h3>Are you sure you want to delete this User?</h3>
+<h2>@Html.DisplayFor(model => model.UserName)</h2>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="configure-control">
+            <span>
+                <input type="submit" value="Delete" class="btn-mnu btn-default" />
+            </span>
+            <a href="@Url.Action("Index")">
+                <span>
+                    <span class="btn-mnu btn-custom">Back To List</span>
+                </span>
+            </a>
+        </div>
+    }
+</div>

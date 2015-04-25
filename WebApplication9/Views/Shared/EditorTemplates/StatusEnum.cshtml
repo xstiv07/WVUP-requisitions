@@ -1,0 +1,7 @@
+﻿@using WebApplication9.Data.Helpers
+
+@{
+    var items = typeof(StatusEnum).GetItems((int?)Model);
+}
+
+@Html.DropDownList("", items, "Please Select", new { @class = "custom-input  form-control" })

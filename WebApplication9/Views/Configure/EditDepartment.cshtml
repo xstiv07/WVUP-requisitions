@@ -1,0 +1,64 @@
+﻿@model WebApplication9.Data.Department
+
+@{
+    ViewBag.Title = "Edit Department";
+}
+
+<h2>Edit Department</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="configure-create-account">
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.DivisionId, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.DropDownListFor(model => model.DivisionId, new SelectList(ViewBag.Divisions, "Id", "Name"), "Select a Division", new { @class = "custom-input form-control inp-b", @id = "department" })
+                    @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.ManagerId, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.DropDownListFor(model => model.ManagerId, new SelectList(ViewBag.Users, "Id", "EMail"), "Select Manager", new { @class = "custom-input form-control inp-b", @id = "department" })
+                    @Html.ValidationMessageFor(model => model.ManagerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="configure-control">
+            <span>
+                <input type="submit" value="Save" class="btn-mnu btn-default" />
+            </span>
+            <a href="@Url.Action("Departments")">
+                <span>
+                    <span class="btn-mnu btn-custom">Back To List</span>
+                </span>
+            </a>
+        </div>
+
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
