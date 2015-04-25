@@ -276,6 +276,7 @@
     <Content Include="Views\Requisition\Completed.cshtml" />
     <Content Include="Views\Requisition\Ordered.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DetailedInfo.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -303,7 +304,6 @@
     <Content Include="Views\UsersAdmin\Details.cshtml" />
     <Content Include="Views\UsersAdmin\Delete.cshtml" />
     <Content Include="Views\UsersAdmin\Create.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\RolesAdmin\Index.cshtml" />
