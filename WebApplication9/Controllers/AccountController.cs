@@ -12,7 +12,7 @@ using System;
 namespace testing111.Controllers
 {
     [Authorize]
-    //[RequireHttps]
+    [RequireHttps]
     public class AccountController : Controller
     {
         private MyUserManager _userManager;
