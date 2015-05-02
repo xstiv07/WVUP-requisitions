@@ -165,7 +165,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <None Include="packages.config" />
     <EntityDeploy Include="Project_Requisition.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

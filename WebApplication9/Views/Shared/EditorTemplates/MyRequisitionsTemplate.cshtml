@@ -11,7 +11,7 @@
     @Html.EditorFor(model => requisition)
 
     <div class="user-explanation-block">
-        @if(requisition.CFO_Explanation != null)
+        @if (requisition.CFO_Explanation != null)
         {
             <div class="left rmi row-main-inline">
                 @Html.LabelFor(model => requisition.CFO_Explanation)
@@ -26,7 +26,7 @@
                 </div>
             </div>
         }
-        @if(requisition.Explanation != null)
+        @if (requisition.Explanation != null)
         {
             <div class="left rmi row-main-inline">
                 @Html.LabelFor(model => requisition.Explanation)

@@ -1,4 +1,3 @@
-C:\Users\Stas\Desktop\WebApplication9\WebApplication9.Data\bin\Release\WebApplication9.Data.dll.config
 C:\Users\Stas\Desktop\WebApplication9\WebApplication9.Data\bin\Release\WebApplication9.Data.dll
 C:\Users\Stas\Desktop\WebApplication9\WebApplication9.Data\bin\Release\WebApplication9.Data.pdb
 C:\Users\Stas\Desktop\WebApplication9\WebApplication9.Data\bin\Release\EntityFramework.dll

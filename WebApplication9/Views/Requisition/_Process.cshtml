@@ -5,7 +5,7 @@
         <span>*</span>
         @Html.LabelFor(model => model.CC_Holder_Name, new { @class = "control-label" })
         <div class="row-contents">
-            @Html.TextBoxFor(model => model.CC_Holder_Name, new { @class = "custom-input form-control inp-b", autocomplete = "off"})
+            @Html.TextBoxFor(model => model.CC_Holder_Name, new { @class = "custom-input form-control inp-b", autocomplete = "off" })
             @Html.ValidationMessageFor(model => model.CC_Holder_Name, "", new { @class = "text-danger" })
         </div>
     </div>

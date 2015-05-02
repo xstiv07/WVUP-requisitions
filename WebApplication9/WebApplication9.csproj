@@ -347,7 +347,6 @@
     <Compile Include="Models\NewRequisitionEmail.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisterDatatablesModelBinder.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 ﻿@model WebApplication9.Data.MyUser
-@Styles.Render("~/Content/datatables")
+@section AddToHead{
+    @Styles.Render("~/Content/datatables")
+}
 
 <h2>@Html.DisplayFor(model => model.UserName)</h2>
 

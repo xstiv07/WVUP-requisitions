@@ -1,11 +1,13 @@
 ﻿@model IEnumerable<WebApplication9.Data.Division>
-@Styles.Render("~/Content/datatables")
+@section AddToHead{
+    @Styles.Render("~/Content/datatables")
+}
 
 <table class="data-table display" id="data-table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name) 
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)

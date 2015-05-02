@@ -4,13 +4,13 @@
 <div class="user-profile-container">
     <div class="col-md-8">
         <h2>Manage Account</h2>
-        @Html.ActionLink("Change your password", "ChangePassword", null, new {@class="change-password" })
+        @Html.ActionLink("Change your password", "ChangePassword", null, new { @class = "change-password" })
     </div>
 
     <div class="stats">
         <div id="yes-req" data-info="Requisition Approval Rating" data-dimension="600" data-border="outline" data-fontsize="70" data-text="@Model.Result%" data-percent="@Model.Result" data-width="20" data-fgcolor="#2ABB9B" data-bgcolor="#EBEBEB">
         </div>
-        
+
     </div>
     <div class="info">
         <h2>Statistics</h2>
