@@ -212,15 +212,20 @@
     <Content Include="Scripts\jssor.slider.mini.js" />
     <Content Include="Scripts\_js_bootbox_complete.js" />
     <Content Include="Scripts\_js_bootbox_void.js" />
+    <Content Include="Scripts\_js_configure_getDivisionDepartments.js" />
     <Content Include="Scripts\_js_DatePicker.js" />
     <Content Include="Scripts\_js_loadContentCreate.js" />
     <Content Include="Scripts\_js_Manage.js" />
     <Content Include="Scripts\_js_Pagination.js" />
+    <Content Include="Scripts\_js_registerPopup.js" />
     <Content Include="Scripts\_js_Review.js" />
     <Content Include="Scripts\_js_AddAnother.js" />
     <Content Include="Scripts\_js_RemoveItem.js" />
     <Content Include="Scripts\_js_forgotPassClick.js" />
     <Content Include="Scripts\_js_Search.js" />
+    <Content Include="Views\Account\Login.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Views\Account\_Login.cshtml" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Views\Requisition\Manage.cshtml">
@@ -316,7 +321,6 @@
     <Content Include="Views\RolesAdmin\Create.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\_ForgotPassword.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />

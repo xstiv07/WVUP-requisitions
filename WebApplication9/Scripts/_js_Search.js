@@ -21,8 +21,9 @@
             },
             data: $(this).serialize(),
             success: function (data) {
+                $("#search-form").slideUp('slow');
+                console.log('here');
                 resultsDiv.html(data);
-                $("#search-form").slideToggle('slow');
             },
             complete: function () {
                 $('.spinner').fadeOut('slow');
