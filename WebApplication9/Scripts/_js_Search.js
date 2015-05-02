@@ -22,9 +22,11 @@
             data: $(this).serialize(),
             success: function (data) {
                 resultsDiv.html(data);
+
             },
             complete: function () {
-                $('.spinner').fadeOut('slow')
+                $('.spinner').fadeOut('slow');
+                $("#search-form").slideToggle('slow');
             }
         })
     })

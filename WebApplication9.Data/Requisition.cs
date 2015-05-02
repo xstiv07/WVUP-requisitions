@@ -36,11 +36,11 @@ namespace WebApplication9.Data
         public string CFO_Decision_By { get; set; }
     
         public virtual Account Account { get; set; }
-        public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReqAdd> ReqAdds { get; set; }
         public virtual User User { get; set; }
+        public virtual Department Department { get; set; }
     }
 }

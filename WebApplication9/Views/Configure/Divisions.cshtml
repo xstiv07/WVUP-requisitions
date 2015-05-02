@@ -7,6 +7,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name) 
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
             <th class="datatable-nosort"></th>
         </tr>
     </thead>
@@ -19,8 +22,12 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
                     @Html.ActionLink("Edit", "EditDivision", new { id = item.Id })
                 </td>
+
             </tr>
         }
     </tbody>

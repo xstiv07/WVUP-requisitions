@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3e7f8e2db42443e0b5bf76e08980864f" Name="Diagram1">
-        <EntityTypeShape EntityType="Project_Requisition1Model.Department" Width="1.5" PointX="6.5" PointY="4.25" />
         <EntityTypeShape EntityType="Project_Requisition1Model.Division" Width="1.5" PointX="9.625" PointY="3.625" />
         <EntityTypeShape EntityType="Project_Requisition1Model.File" Width="1.5" PointX="12.625" PointY="11.5" />
         <EntityTypeShape EntityType="Project_Requisition1Model.Fund" Width="1.5" PointX="12.5" PointY="6.375" />
@@ -16,13 +15,10 @@
         <EntityTypeShape EntityType="Project_Requisition1Model.UserClaim" Width="1.5" PointX="1.125" PointY="4.875" />
         <EntityTypeShape EntityType="Project_Requisition1Model.UserLogin" Width="1.5" PointX="1.125" PointY="9.25" />
         <EntityTypeShape EntityType="Project_Requisition1Model.UserRegistrationToken" Width="1.5" PointX="3.625" PointY="10.875" />
-        <AssociationConnector Association="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425" />
-        <AssociationConnector Association="Project_Requisition1Model.FK__Departmen__Manag__6F00685E" />
         <AssociationConnector Association="Project_Requisition1Model.FK_UserClaim_User" />
         <AssociationConnector Association="Project_Requisition1Model.FK_UserLogin_User" />
         <AssociationConnector Association="Project_Requisition1Model.UserRole" />
         <EntityTypeShape EntityType="Project_Requisition1Model.Account" Width="1.5" PointX="9.75" PointY="6.375" />
-        <AssociationConnector Association="Project_Requisition1Model.FK__Account__Departm__73C51D7B" />
         <AssociationConnector Association="Project_Requisition1Model.FK__Account__Divisio__0C90CB45" />
         <AssociationConnector Association="Project_Requisition1Model.FK__Account__FundId__74B941B4" />
         <EntityTypeShape EntityType="Project_Requisition1Model.Item" Width="1.5" PointX="9" PointY="10.125" />
@@ -30,11 +26,15 @@
         <AssociationConnector Association="Project_Requisition1Model.FK__Item__ItemCatego__0307610B" />
         <EntityTypeShape EntityType="Project_Requisition1Model.Requisition" Width="1.5" PointX="6.5" PointY="7.25" />
         <AssociationConnector Association="Project_Requisition1Model.FK__Requisiti__Accou__3592E0D8" />
-        <AssociationConnector Association="Project_Requisition1Model.FK__Requisiti__Depar__36870511" />
         <AssociationConnector Association="Project_Requisition1Model.FK__Item__Requisitio__3E2826D9" />
         <AssociationConnector Association="Project_Requisition1Model.FK__ReqAdd__Requisit__3B4BBA2E" />
         <AssociationConnector Association="Project_Requisition1Model.FK__Requisiti__User___349EBC9F" />
-      </Diagram>
+        <EntityTypeShape EntityType="Project_Requisition1Model.Department" Width="1.5" PointX="7" PointY="3.5" />
+        <AssociationConnector Association="Project_Requisition1Model.FK__Account__Departm__73C51D7B" />
+        <AssociationConnector Association="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425" />
+        <AssociationConnector Association="Project_Requisition1Model.FK__Departmen__Manag__6F00685E" />
+        <AssociationConnector Association="Project_Requisition1Model.FK__Requisiti__Depar__36870511" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

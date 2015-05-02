@@ -17,11 +17,11 @@ namespace WebApplication9.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Departments = new HashSet<Department>();
             this.UserClaims = new HashSet<UserClaim>();
             this.UserLogins = new HashSet<UserLogin>();
             this.Roles = new HashSet<Role>();
             this.Requisitions = new HashSet<Requisition>();
+            this.Departments = new HashSet<Department>();
         }
     
         public long Id { get; set; }
@@ -42,8 +42,6 @@ namespace WebApplication9.Data
         public int AccessFailedCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Department> Departments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserClaim> UserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLogin> UserLogins { get; set; }
@@ -51,5 +49,7 @@ namespace WebApplication9.Data
         public virtual ICollection<Role> Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Requisition> Requisitions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Department> Departments { get; set; }
     }
 }

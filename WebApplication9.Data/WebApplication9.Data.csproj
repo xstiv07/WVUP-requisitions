@@ -98,6 +98,7 @@
     <Compile Include="Fund.cs">
       <DependentUpon>Project_Requisition.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ConfigureStatusEnum.cs" />
     <Compile Include="Helpers\StatusEnum.cs" />
     <Compile Include="Item.cs">
       <DependentUpon>Project_Requisition.tt</DependentUpon>

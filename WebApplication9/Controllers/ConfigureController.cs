@@ -6,6 +6,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication9.Data;
+using WebApplication9.Data.Helpers;
+using WebApplication9.Helpers;
 
 namespace WebApplication9.Controllers
 {
@@ -48,16 +50,21 @@ namespace WebApplication9.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditAccount(Account account)
+        public ActionResult EditAccount(Account model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(account).State = EntityState.Modified;
+                //find an existing department and set its status to inactive
+                var oldAccount = db.Accounts.Find(model.Id);
+                oldAccount.Status = ConfigureStatusEnum.Inactive;
+
+                db.Accounts.Add(model); //add a new department to a database based on the model user entered
+
                 db.SaveChanges();
                 return RedirectToAction("Accounts");
             }
             GetAccountData();
-            return View(account);
+            return View(model);
         }
 
         public ActionResult Accounts()
@@ -98,17 +105,22 @@ namespace WebApplication9.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditDepartment(Department department)
+        public ActionResult EditDepartment(Department model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(department).State = EntityState.Modified;
+                //find an existing department and set its status to inactive
+                var oldDepartment = db.Departments.Find(model.Id);
+                oldDepartment.Status = ConfigureStatusEnum.Inactive;
+
+                db.Departments.Add(model); //add a new department to a database based on the model user entered
+
                 db.SaveChanges();
                 return RedirectToAction("Departments");
             }
             ViewBag.Divisions = db.Divisions.ToList();
             ViewBag.Users = db.Users.ToList();
-            return View(department);
+            return View(model);
         }
 
         public ActionResult Departments()
@@ -142,15 +154,20 @@ namespace WebApplication9.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditFund(Fund fund)
+        public ActionResult EditFund(Fund model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(fund).State = EntityState.Modified;
+                //find an existing department and set its status to inactive
+                var oldFund = db.Funds.Find(model.Id);
+                oldFund.Status = ConfigureStatusEnum.Inactive;
+
+                db.Funds.Add(model);
+
                 db.SaveChanges();
                 return RedirectToAction("Funds");
             }
-            return View(fund);
+            return View(model);
         }
 
         public ActionResult Funds()
@@ -187,15 +204,20 @@ namespace WebApplication9.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditDivision(Division division)
+        public ActionResult EditDivision(Division model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(division).State = EntityState.Modified;
+                //find an existing department and set its status to inactive
+                var oldDivision = db.Divisions.Find(model.Id);
+                oldDivision.Status = ConfigureStatusEnum.Inactive;
+
+                db.Divisions.Add(model); //add a new department to a database based on the model user entered
+
                 db.SaveChanges();
                 return RedirectToAction("Divisions");
             }
-            return View(division);
+            return View(model);
         }
 
         public ActionResult Divisions()
@@ -206,7 +228,7 @@ namespace WebApplication9.Controllers
 
         public JsonResult GetDivisionDepartments(int id)
         {
-            var divisionDepartments = db.Departments.Where(x => x.DivisionId == id).ToList();
+            var divisionDepartments = db.Departments.Where(x => x.DivisionId == id && x.Status == ConfigureStatusEnum.Active).ToList();
             var result = Json(divisionDepartments);
 
             return Json(new SelectList(divisionDepartments, "Id", "Name"));
@@ -214,10 +236,10 @@ namespace WebApplication9.Controllers
 
         private void GetAccountData()
         {
-            GetDepartmentsViewBag();
+            GetActiveDepartmentsViewBag();
 
-            var funds = db.Funds.ToList();
-            var divisions = db.Divisions.ToList();
+            var funds = db.Funds.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
+            var divisions = db.Divisions.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
             ViewBag.Funds = funds;
             ViewBag.Divisions = divisions;
         }
@@ -225,6 +247,12 @@ namespace WebApplication9.Controllers
         private void GetDepartmentsViewBag()
         {
             var departments = db.Departments.ToList();
+            ViewBag.Departments = departments;
+        }
+
+        private void GetActiveDepartmentsViewBag()
+        {
+            var departments = db.Departments.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
             ViewBag.Departments = departments;
         }
 
@@ -254,15 +282,20 @@ namespace WebApplication9.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditItemCategory(ItemCategory itemCategory)
+        public ActionResult EditItemCategory(ItemCategory model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(itemCategory).State = EntityState.Modified;
+                //find an existing department and set its status to inactive
+                var oldItemCategory = db.ItemCategories.Find(model.ItemCategoryId);
+                oldItemCategory.Status = ConfigureStatusEnum.Inactive;
+
+                db.ItemCategories.Add(model); //add a new department to a database based on the model user entered
+
                 db.SaveChanges();
                 return RedirectToAction("ItemCategories");
             }
-            return View(itemCategory);
+            return View(model);
         }
 
         public ActionResult ItemCategories()

@@ -25,11 +25,12 @@ namespace WebApplication9.Data
         public Nullable<int> DivisionId { get; set; }
         public Nullable<long> ManagerId { get; set; }
         public string Name { get; set; }
+        public WebApplication9.Data.Helpers.ConfigureStatusEnum Status { get; set; }
     
-        public virtual Division Division { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Accounts { get; set; }
+        public virtual Division Division { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Requisition> Requisitions { get; set; }
     }

@@ -13,6 +13,7 @@ using PagedList;
 using WebApplication9.Models;
 using System.Collections.Generic;
 using WebApplication9.Data.Helpers;
+using System.Web.Script.Serialization;
 
 namespace WebApplication9.Controllers
 {
@@ -25,6 +26,8 @@ namespace WebApplication9.Controllers
 
         const int minExplanationLength = 10;
         const int pageSize = 3;
+        const int approvalLimit = 3000;
+        const string emailFrom = "xstiv07@gmail.com"; //purchasing email address goes here
 
         MyUserManager _userManager;
 
@@ -46,9 +49,9 @@ namespace WebApplication9.Controllers
             var user = await GetCurrentUser();
             var req = new Requisition();
 
-            ViewBag.Divisions = db.Divisions.ToList();
+            ViewBag.Divisions = db.Divisions.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
 
-            var itemCategories = db.ItemCategories.ToList();
+            var itemCategories = db.ItemCategories.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
             ViewBag.ItemCategories = itemCategories;
             iCategories = itemCategories;
 
@@ -71,7 +74,7 @@ namespace WebApplication9.Controllers
 
                 foreach (var item in requisition.Items)
                 {
-                    if (item.Price * item.Quantity > 3000)
+                    if (item.Price * item.Quantity > approvalLimit)
                         requisition.CFO_approval = true;
                 }
 
@@ -129,7 +132,7 @@ namespace WebApplication9.Controllers
             var email = new NewRequisitionEmail
             {
                 To = targetEmail,
-                From = "xstiv07@gmail.com", //purchasing department email goes here
+                From = emailFrom, //purchasing department email goes here
                 Recepient = departmentManager.First_Name,
                 UserName = user.First_Name + " " + user.Last_Name
             };
@@ -182,7 +185,7 @@ namespace WebApplication9.Controllers
             var user = await GetCurrentUser();
             Requisition reqToVoid = null;
 
-            //if it is a regualr user - limit the query to navigate only user's own requisitions
+            //if it is a regular user - limit the query to navigate only user's own requisitions
             if (user.Roles.Count != 0)
                 reqToVoid = db.Requisitions.Where(x => x.RequisitionId == id).FirstOrDefault();
             else
@@ -351,7 +354,9 @@ namespace WebApplication9.Controllers
         [Authorize(Roles = "Admin, Purchasing Department")]
         public ActionResult Search()
         {
-            GetDepartmentViewBag();
+            if (Request.IsAjaxRequest())
+                return HttpNotFound();
+            ViewBag.Departments = db.Departments.ToList();
             ViewBag.Accounts = db.Accounts.ToList();
             ViewBag.Divisions = db.Divisions.ToList();
             ViewBag.Funds = db.Funds.ToList();
@@ -360,6 +365,7 @@ namespace WebApplication9.Controllers
 
         public ActionResult SearchResult(SearchViewModel model, int? page)
         {
+
             int pageNumber = (page ?? 1);
             IQueryable<Requisition> results = null;
 
@@ -388,27 +394,21 @@ namespace WebApplication9.Controllers
             return PartialView(results.ToPagedList(pageNumber, pageSize));
         }
 
-        public JsonResult GetDepartments(int id)
+        public JsonResult GetActiveDepartments(int id)
         {
-            var departments = db.Departments.Where(x => x.DivisionId == id).ToList();
+            var departments = db.Departments.Where(x => x.DivisionId == id && x.Status == ConfigureStatusEnum.Active).ToList();
             var result = Json(departments);
 
             return Json(new SelectList(departments, "Id", "Name"));
         }
 
 
-        public JsonResult GetAccounts(int id)
+        public JsonResult GetActiveAccounts(int id)
         {
-            var departmentAccounts = db.Accounts.Where(x => x.DepartmentId == id).ToList();
+            var departmentAccounts = db.Accounts.Where(x => x.DepartmentId == id && x.Status == ConfigureStatusEnum.Active).ToList();
             var result = Json(departmentAccounts);
 
             return Json(new SelectList(departmentAccounts, "Id", "Name"));
-        }
-
-        private void GetDepartmentViewBag()
-        {
-            var departments = db.Departments.ToList();
-            ViewBag.Departments = departments;
         }
 
 

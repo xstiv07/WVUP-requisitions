@@ -1,19 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Project_Requisition1ModelStoreContainer" CdmEntityContainer="Requisition1Entities">
-    <EntitySetMapping Name="Departments">
-      <EntityTypeMapping TypeName="Project_Requisition1Model.Department">
-        <MappingFragment StoreEntitySet="Department">
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
-          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Divisions">
       <EntityTypeMapping TypeName="Project_Requisition1Model.Division">
         <MappingFragment StoreEntitySet="Division">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -32,6 +23,7 @@
     <EntitySetMapping Name="Funds">
       <EntityTypeMapping TypeName="Project_Requisition1Model.Fund">
         <MappingFragment StoreEntitySet="Fund">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Number" ColumnName="Number" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -40,6 +32,7 @@
     <EntitySetMapping Name="ItemCategories">
       <EntityTypeMapping TypeName="Project_Requisition1Model.ItemCategory">
         <MappingFragment StoreEntitySet="ItemCategory">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Number" ColumnName="Number" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ItemCategoryId" ColumnName="ItemCategoryId" />
@@ -128,6 +121,7 @@
     <EntitySetMapping Name="Accounts">
       <EntityTypeMapping TypeName="Project_Requisition1Model.Account">
         <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="String" ColumnName="String" />
@@ -168,6 +162,17 @@
           <ScalarProperty Name="AccountId" ColumnName="AccountId" />
           <ScalarProperty Name="User_Id" ColumnName="User_Id" />
           <ScalarProperty Name="RequisitionId" ColumnName="RequisitionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="Project_Requisition1Model.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

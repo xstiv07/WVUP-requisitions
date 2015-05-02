@@ -15,6 +15,7 @@
           <Property Name="String" Type="varchar(max)" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" Nullable="false" />
           <Property Name="DivisionId" Type="int" />
+          <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -24,6 +25,7 @@
           <Property Name="DivisionId" Type="int" />
           <Property Name="ManagerId" Type="bigint" />
           <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Division">
           <Key>
@@ -31,6 +33,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="File">
           <Key>
@@ -47,6 +50,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Number" Type="varchar(max)" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -69,6 +73,7 @@
           <Property Name="ItemCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" Nullable="false" />
           <Property Name="Number" Type="varchar(max)" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ReqAdd">
           <Key>
@@ -449,7 +454,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Project_Requisition1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Requisition1Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Departments" EntityType="Project_Requisition1Model.Department" />
           <EntitySet Name="Divisions" EntityType="Project_Requisition1Model.Division" />
           <EntitySet Name="Files" EntityType="Project_Requisition1Model.File" />
           <EntitySet Name="Funds" EntityType="Project_Requisition1Model.Fund" />
@@ -460,14 +464,6 @@
           <EntitySet Name="UserClaims" EntityType="Project_Requisition1Model.UserClaim" />
           <EntitySet Name="UserLogins" EntityType="Project_Requisition1Model.UserLogin" />
           <EntitySet Name="UserRegistrationTokens" EntityType="Project_Requisition1Model.UserRegistrationToken" />
-          <AssociationSet Name="FK__Departmen__Divis__6E0C4425" Association="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425">
-            <End Role="Division" EntitySet="Divisions" />
-            <End Role="Department" EntitySet="Departments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Departmen__Manag__6F00685E" Association="Project_Requisition1Model.FK__Departmen__Manag__6F00685E">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Department" EntitySet="Departments" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserClaim_User" Association="Project_Requisition1Model.FK_UserClaim_User">
             <End Role="User" EntitySet="Users" />
             <End Role="UserClaim" EntitySet="UserClaims" />
@@ -481,10 +477,6 @@
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
           <EntitySet Name="Accounts" EntityType="Project_Requisition1Model.Account" />
-          <AssociationSet Name="FK__Account__Departm__73C51D7B" Association="Project_Requisition1Model.FK__Account__Departm__73C51D7B">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Account" EntitySet="Accounts" />
-          </AssociationSet>
           <AssociationSet Name="FK__Account__Divisio__0C90CB45" Association="Project_Requisition1Model.FK__Account__Divisio__0C90CB45">
             <End Role="Division" EntitySet="Divisions" />
             <End Role="Account" EntitySet="Accounts" />
@@ -507,10 +499,6 @@
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Requisition" EntitySet="Requisitions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Requisiti__Depar__36870511" Association="Project_Requisition1Model.FK__Requisiti__Depar__36870511">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Requisition" EntitySet="Requisitions" />
-          </AssociationSet>
           <AssociationSet Name="FK__Item__Requisitio__3E2826D9" Association="Project_Requisition1Model.FK__Item__Requisitio__3E2826D9">
             <End Role="Requisition" EntitySet="Requisitions" />
             <End Role="Item" EntitySet="Items" />
@@ -523,28 +511,33 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Requisition" EntitySet="Requisitions" />
           </AssociationSet>
+          <EntitySet Name="Departments" EntityType="Project_Requisition1Model.Department" />
+          <AssociationSet Name="FK__Account__Departm__73C51D7B" Association="Project_Requisition1Model.FK__Account__Departm__73C51D7B">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__Divis__6E0C4425" Association="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425">
+            <End Role="Division" EntitySet="Divisions" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__Manag__6F00685E" Association="Project_Requisition1Model.FK__Departmen__Manag__6F00685E">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Requisiti__Depar__36870511" Association="Project_Requisition1Model.FK__Requisiti__Depar__36870511">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Requisition" EntitySet="Requisitions" />
+          </AssociationSet>
           </EntityContainer>
-        <EntityType Name="Department">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DivisionId" Type="Int32" />
-          <Property Name="ManagerId" Type="Int64" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Division" Relationship="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425" FromRole="Department" ToRole="Division" />
-          <NavigationProperty Name="User" Relationship="Project_Requisition1Model.FK__Departmen__Manag__6F00685E" FromRole="Department" ToRole="User" />
-          <NavigationProperty Name="Accounts" Relationship="Project_Requisition1Model.FK__Account__Departm__73C51D7B" FromRole="Department" ToRole="Account" />
-          <NavigationProperty Name="Requisitions" Relationship="Project_Requisition1Model.FK__Requisiti__Depar__36870511" FromRole="Department" ToRole="Requisition" />
-        </EntityType>
         <EntityType Name="Division">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Departments" Relationship="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425" FromRole="Division" ToRole="Department" />
           <NavigationProperty Name="Accounts" Relationship="Project_Requisition1Model.FK__Account__Divisio__0C90CB45" FromRole="Division" ToRole="Account" />
+          <NavigationProperty Name="Departments" Relationship="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425" FromRole="Division" ToRole="Department" />
+          <Property Name="Status" Type="Project_Requisition1Model.ConfigureStatusEnum" Nullable="false" />
         </EntityType>
         <EntityType Name="File">
           <Key>
@@ -563,6 +556,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Accounts" Relationship="Project_Requisition1Model.FK__Account__FundId__74B941B4" FromRole="Fund" ToRole="Account" />
+          <Property Name="Status" Type="Project_Requisition1Model.ConfigureStatusEnum" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemCategory">
           <Key>
@@ -572,6 +566,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Items" Relationship="Project_Requisition1Model.FK__Item__ItemCatego__0307610B" FromRole="ItemCategory" ToRole="Item" />
+          <Property Name="Status" Type="Project_Requisition1Model.ConfigureStatusEnum" Nullable="false" />
         </EntityType>
         <EntityType Name="ReqAdd">
           <Key>
@@ -614,11 +609,11 @@
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="7" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Departments" Relationship="Project_Requisition1Model.FK__Departmen__Manag__6F00685E" FromRole="User" ToRole="Department" />
           <NavigationProperty Name="UserClaims" Relationship="Project_Requisition1Model.FK_UserClaim_User" FromRole="User" ToRole="UserClaim" />
           <NavigationProperty Name="UserLogins" Relationship="Project_Requisition1Model.FK_UserLogin_User" FromRole="User" ToRole="UserLogin" />
           <NavigationProperty Name="Roles" Relationship="Project_Requisition1Model.UserRole" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="Requisitions" Relationship="Project_Requisition1Model.FK__Requisiti__User___349EBC9F" FromRole="User" ToRole="Requisition" />
+          <NavigationProperty Name="Departments" Relationship="Project_Requisition1Model.FK__Departmen__Manag__6F00685E" FromRole="User" ToRole="Department" />
         </EntityType>
         <EntityType Name="UserClaim">
           <Key>
@@ -649,30 +644,6 @@
           <Property Name="UserId" Type="Int64" />
           <Property Name="Token" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
-        <Association Name="FK__Departmen__Divis__6E0C4425">
-          <End Type="Project_Requisition1Model.Division" Role="Division" Multiplicity="0..1" />
-          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Division">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Department">
-              <PropertyRef Name="DivisionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Departmen__Manag__6F00685E">
-          <End Type="Project_Requisition1Model.User" Role="User" Multiplicity="0..1" />
-          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Department">
-              <PropertyRef Name="ManagerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserClaim_User">
           <End Type="Project_Requisition1Model.User" Role="User" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -715,23 +686,12 @@
           <Property Name="String" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DivisionId" Type="Int32" />
-          <NavigationProperty Name="Department" Relationship="Project_Requisition1Model.FK__Account__Departm__73C51D7B" FromRole="Account" ToRole="Department" />
           <NavigationProperty Name="Division" Relationship="Project_Requisition1Model.FK__Account__Divisio__0C90CB45" FromRole="Account" ToRole="Division" />
           <NavigationProperty Name="Fund" Relationship="Project_Requisition1Model.FK__Account__FundId__74B941B4" FromRole="Account" ToRole="Fund" />
           <NavigationProperty Name="Requisitions" Relationship="Project_Requisition1Model.FK__Requisiti__Accou__3592E0D8" FromRole="Account" ToRole="Requisition" />
+          <NavigationProperty Name="Department" Relationship="Project_Requisition1Model.FK__Account__Departm__73C51D7B" FromRole="Account" ToRole="Department" />
+          <Property Name="Status" Type="Project_Requisition1Model.ConfigureStatusEnum" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Account__Departm__73C51D7B">
-          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="0..1" />
-          <End Type="Project_Requisition1Model.Account" Role="Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="DepartmentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Account__Divisio__0C90CB45">
           <End Type="Project_Requisition1Model.Division" Role="Division" Multiplicity="0..1" />
           <End Type="Project_Requisition1Model.Account" Role="Account" Multiplicity="*" />
@@ -816,10 +776,10 @@
           <Property Name="CFO_Explanation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CFO_Decision_By" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Account" Relationship="Project_Requisition1Model.FK__Requisiti__Accou__3592E0D8" FromRole="Requisition" ToRole="Account" />
-          <NavigationProperty Name="Department" Relationship="Project_Requisition1Model.FK__Requisiti__Depar__36870511" FromRole="Requisition" ToRole="Department" />
           <NavigationProperty Name="Items" Relationship="Project_Requisition1Model.FK__Item__Requisitio__3E2826D9" FromRole="Requisition" ToRole="Item" />
           <NavigationProperty Name="ReqAdds" Relationship="Project_Requisition1Model.FK__ReqAdd__Requisit__3B4BBA2E" FromRole="Requisition" ToRole="ReqAdd" />
           <NavigationProperty Name="User" Relationship="Project_Requisition1Model.FK__Requisiti__User___349EBC9F" FromRole="Requisition" ToRole="User" />
+          <NavigationProperty Name="Department" Relationship="Project_Requisition1Model.FK__Requisiti__Depar__36870511" FromRole="Requisition" ToRole="Department" />
         </EntityType>
         <Association Name="FK__Requisiti__Accou__3592E0D8">
           <End Type="Project_Requisition1Model.Account" Role="Account" Multiplicity="0..1" />
@@ -830,18 +790,6 @@
             </Principal>
             <Dependent Role="Requisition">
               <PropertyRef Name="AccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Requisiti__Depar__36870511">
-          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="0..1" />
-          <End Type="Project_Requisition1Model.Requisition" Role="Requisition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Requisition">
-              <PropertyRef Name="DepartmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -881,25 +829,79 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DivisionId" Type="Int32" />
+          <Property Name="ManagerId" Type="Int64" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Project_Requisition1Model.ConfigureStatusEnum" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Project_Requisition1Model.FK__Account__Departm__73C51D7B" FromRole="Department" ToRole="Account" />
+          <NavigationProperty Name="Division" Relationship="Project_Requisition1Model.FK__Departmen__Divis__6E0C4425" FromRole="Department" ToRole="Division" />
+          <NavigationProperty Name="User" Relationship="Project_Requisition1Model.FK__Departmen__Manag__6F00685E" FromRole="Department" ToRole="User" />
+          <NavigationProperty Name="Requisitions" Relationship="Project_Requisition1Model.FK__Requisiti__Depar__36870511" FromRole="Department" ToRole="Requisition" />
+        </EntityType>
+        <Association Name="FK__Account__Departm__73C51D7B">
+          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__Divis__6E0C4425">
+          <End Type="Project_Requisition1Model.Division" Role="Division" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__Manag__6F00685E">
+          <End Type="Project_Requisition1Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Requisiti__Depar__36870511">
+          <End Type="Project_Requisition1Model.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="Project_Requisition1Model.Requisition" Role="Requisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requisition">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="ConfigureStatusEnum" a:ExternalTypeName="WebApplication9.Data.Helpers.ConfigureStatusEnum" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Project_Requisition1ModelStoreContainer" CdmEntityContainer="Requisition1Entities">
-          <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="Project_Requisition1Model.Department">
-              <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
-                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Divisions">
             <EntityTypeMapping TypeName="Project_Requisition1Model.Division">
               <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -918,6 +920,7 @@
           <EntitySetMapping Name="Funds">
             <EntityTypeMapping TypeName="Project_Requisition1Model.Fund">
               <MappingFragment StoreEntitySet="Fund">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -926,6 +929,7 @@
           <EntitySetMapping Name="ItemCategories">
             <EntityTypeMapping TypeName="Project_Requisition1Model.ItemCategory">
               <MappingFragment StoreEntitySet="ItemCategory">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ItemCategoryId" ColumnName="ItemCategoryId" />
@@ -1014,6 +1018,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="Project_Requisition1Model.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="String" ColumnName="String" />
@@ -1054,6 +1059,17 @@
                 <ScalarProperty Name="AccountId" ColumnName="AccountId" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="RequisitionId" ColumnName="RequisitionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="Project_Requisition1Model.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -25,7 +25,6 @@ namespace WebApplication9.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Division> Divisions { get; set; }
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Fund> Funds { get; set; }
@@ -39,5 +38,6 @@ namespace WebApplication9.Data
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Requisition> Requisitions { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
     }
 }

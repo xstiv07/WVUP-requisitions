@@ -10,6 +10,7 @@
     <Property Name="String" Type="varchar(max)" Nullable="false" />
     <Property Name="Name" Type="varchar(max)" Nullable="false" />
     <Property Name="DivisionId" Type="int" />
+    <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Department">
     <Key>
@@ -19,6 +20,7 @@
     <Property Name="DivisionId" Type="int" />
     <Property Name="ManagerId" Type="bigint" />
     <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Division">
     <Key>
@@ -26,6 +28,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="File">
     <Key>
@@ -42,6 +45,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Number" Type="varchar(max)" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Item">
     <Key>
@@ -64,6 +68,7 @@
     <Property Name="ItemCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar(max)" Nullable="false" />
     <Property Name="Number" Type="varchar(max)" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ReqAdd">
     <Key>

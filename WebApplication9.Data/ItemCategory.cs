@@ -23,6 +23,7 @@ namespace WebApplication9.Data
         public int ItemCategoryId { get; set; }
         public string Name { get; set; }
         public string Number { get; set; }
+        public WebApplication9.Data.Helpers.ConfigureStatusEnum Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }

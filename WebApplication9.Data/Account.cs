@@ -26,11 +26,12 @@ namespace WebApplication9.Data
         public string String { get; set; }
         public string Name { get; set; }
         public Nullable<int> DivisionId { get; set; }
+        public WebApplication9.Data.Helpers.ConfigureStatusEnum Status { get; set; }
     
-        public virtual Department Department { get; set; }
         public virtual Division Division { get; set; }
         public virtual Fund Fund { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Requisition> Requisitions { get; set; }
+        public virtual Department Department { get; set; }
     }
 }

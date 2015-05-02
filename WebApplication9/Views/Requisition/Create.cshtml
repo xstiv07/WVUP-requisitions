@@ -75,7 +75,7 @@
             {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetDepartments")',
+                    url: '@Url.Action("GetActiveDepartments")',
                     dataType: 'json',
                     beforeSend: function () {
                         $('.spinner').fadeIn('slow')
@@ -111,7 +111,7 @@
             {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetAccounts")',
+                    url: '@Url.Action("GetActiveAccounts")',
                     dataType: 'json',
                     beforeSend: function () {
                         $('.spinner').fadeIn('slow')
