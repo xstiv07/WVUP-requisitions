@@ -1,8 +1,9 @@
 ﻿@model WebApplication9.Models.SearchViewModel
+@{ViewBag.Title = "Search";}
 
 <div>
     <span id="searchFormToggle">Show/Hide filter</span>
-    @using (Html.BeginForm("SearchResult", "Requisition", FormMethod.Get, new { @class = "search-form", @id = "search-form" }))
+    @using (Html.BeginForm("_SearchResult", "Requisition", FormMethod.Get, new { @class = "search-form", @id = "search-form" }))
     {
         <div class="col-2">
             @Html.LabelFor(model => model.AccountNumber, new { @class = "search-label" })

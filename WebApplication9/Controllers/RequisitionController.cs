@@ -143,7 +143,7 @@ namespace WebApplication9.Controllers
         public ActionResult ItemEntryRow()
         {
             ViewBag.ItemCategories = iCategories;
-            return PartialView("ItemEntryEditor", new Item());
+            return PartialView("_ItemEntryEditor", new Item());
         }
 
         public ActionResult Display()
@@ -363,7 +363,7 @@ namespace WebApplication9.Controllers
             return View();
         }
 
-        public ActionResult SearchResult(SearchViewModel model, int? page)
+        public ActionResult _SearchResult(SearchViewModel model, int? page)
         {
 
             int pageNumber = (page ?? 1);

@@ -49,26 +49,35 @@
                 </div>
             </div>
 
-            <div class="left rmi row-main-inline">
-                @Html.LabelFor(model => extra.Purchase_Order_Num)
-                <div class="requisition-detail-content">
-                    @Html.DisplayFor(model => extra.Purchase_Order_Num)
+            if (!extra.Purchase_Order_Num.IsEmpty())
+            {
+                <div class="left rmi row-main-inline">
+                    @Html.LabelFor(model => extra.Purchase_Order_Num)
+                    <div class="requisition-detail-content">
+                        @Html.DisplayFor(model => extra.Purchase_Order_Num)
+                    </div>
                 </div>
-            </div>
+            }
 
-            <div class="left rmi row-main-inline">
-                @Html.LabelFor(model => extra.Date_Expected_Delivery)
-                <div class="requisition-detail-content">
-                    @Html.DisplayFor(model => extra.Date_Expected_Delivery)
+            if (extra.Date_Expected_Delivery.HasValue)
+            {
+                <div class="left rmi row-main-inline">
+                    @Html.LabelFor(model => extra.Date_Expected_Delivery)
+                    <div class="requisition-detail-content">
+                        @Html.DisplayFor(model => extra.Date_Expected_Delivery)
+                    </div>
                 </div>
-            </div>
+            }
 
-            <div class="left rmi row-main-inline">
-                @Html.LabelFor(model => extra.Comments)
-                <div class="requisition-detail-content">
-                    @Html.DisplayFor(model => extra.Comments)
+            if (!extra.Comments.IsEmpty())
+            {
+                <div class="left rmi row-main-inline">
+                    @Html.LabelFor(model => extra.Comments)
+                    <div class="requisition-detail-content">
+                        @Html.DisplayFor(model => extra.Comments)
+                    </div>
                 </div>
-            </div>
+            }
         }
     }
 </div>

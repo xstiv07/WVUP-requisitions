@@ -1,8 +1,12 @@
 ﻿@model PagedList.IPagedList<WebApplication9.Data.Requisition>
 @using PagedList.Mvc;
+@{ ViewBag.Title = "Manage Requisitions"; }
 
 @if (Model.Count > 0)
 {
+    @section AddToHead{
+        <link href="~/Content/bootbox.css" rel="stylesheet" />
+    }
     <div id="hty">
         @if (Model.PageCount > 1)
         {
@@ -13,16 +17,20 @@
 
         @Html.EditorFor(model => Model, "ManageTemplate")
     </div>
+    
+    <script type="text/javascript" src="~/Scripts/jquery.collapsiblepanel.js"></script>
+    <script type="text/javascript" src="~/Scripts/_js_DatePicker.js"></script>
+    <script type="text/javascript" src="~/Scripts/_js_Manage.js"></script>
+    <script src="~/Scripts/_js_Pagination.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/_js_bootbox_void.js"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
 }
 else
 {   <div class="coffee">
-        <p>There are no approved requisitions at the moment!!</p>
+        <h5>There are no approved requisitions at the moment...</h5>
         <span class="icono-cup"></span>
     </div>
 }
-
-<script type="text/javascript" src="~/Scripts/jquery.collapsiblepanel.js"></script>
-<script type="text/javascript" src="~/Scripts/_js_DatePicker.js"></script>
-<script type="text/javascript" src="~/Scripts/_js_Manage.js"></script>
-<script src="~/Scripts/_js_Pagination.js" type="text/javascript"></script>
-@Scripts.Render("~/bundles/jqueryval")

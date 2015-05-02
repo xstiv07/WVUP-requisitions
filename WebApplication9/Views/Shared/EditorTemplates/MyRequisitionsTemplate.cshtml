@@ -3,7 +3,7 @@
 
 @foreach (var requisition in Model)
 {
-    if (requisition.Status != StatusEnum.Void)
+    if (requisition.Status == StatusEnum.Submitted)
     {
         <p class="requisition-void" id="req-void_@requisition.RequisitionId" data-attr='@requisition.RequisitionId'>Void</p>
     }

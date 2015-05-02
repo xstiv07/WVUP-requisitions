@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<WebApplication9.Data.Account>
 
-@Styles.Render("~/Content/datatables")
+@section AddToHead{
+    @Styles.Render("~/Content/datatables")
+}
 <table class="data-table display" id="data-table">
     <thead>
         <tr>

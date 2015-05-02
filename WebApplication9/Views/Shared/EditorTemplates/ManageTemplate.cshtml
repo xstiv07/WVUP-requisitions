@@ -6,7 +6,7 @@
     <div class="review-block padding" id="blk-@requisition.RequisitionId">
         @if (requisition.Status != StatusEnum.Void)
         {
-            @Html.ActionLink("Void", "Void", "Requisition", new { id = requisition.RequisitionId }, new { @class = "requisition-void" });
+            <p class="requisition-void" id="req-void_@requisition.RequisitionId" data-attr='@requisition.RequisitionId'>Void</p>
         }
         @Html.EditorFor(model => requisition)
 
@@ -34,7 +34,7 @@
                         OnFailure = "Failure"
                     }))
             {
-                Html.RenderPartial("Process", new WebApplication9.Data.ReqAdd());
+                Html.RenderPartial("_Process", new WebApplication9.Data.ReqAdd());
                 <div style="float:right">
                     <input type="submit" value="Process" id="proceed" class="btn-mnu btn-default" />
                 </div>

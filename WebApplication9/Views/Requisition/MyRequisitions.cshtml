@@ -1,11 +1,14 @@
 ﻿@model PagedList.IPagedList<WebApplication9.Data.Requisition>
 @using PagedList.Mvc;
+@{ViewBag.Title = "My Requisitions";}
+
 
 @if (Model.Count > 0)
 {
     @section AddToHead{
         <link href="~/Content/bootbox.css" rel="stylesheet" />
     }
+
     <div id="hty">
         @if (Model.PageCount > 1)
         {
@@ -21,39 +24,7 @@
     <script src="~/Scripts/_js_Pagination.js" type="text/javascript"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootbox.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        var errorMsg = 'Something failed, please try again';
-        $('.requisition-void').click(function () {
-            var id = $(this).attr('data-attr');
-            bootbox.confirm('Are you sure?', function (result) {
-                if (result) {
-                    $.ajax({
-                        type: "POST",
-                        url: "/Requisition/Void",
-                        data: {
-                            "id": id
-                        },
-                        beforeSend: function () {
-                            $('.spinner').fadeIn('slow')
-                        },
-                        error: function (xhr, status, error) {
-                            $('.spinner').fadeOut('slow');
-                            $('.ajax-message').text(errorMsg);
-                            $('.ajax-message').css('backgroundColor', '#F1A9A0');
-                            $('.ajax-message').css('color', 'white');
-                            $('.ajax-message').fadeIn('slow').delay(5000).fadeOut('slow');
-                        },
-                        complete: function () {
-                            $('.spinner').fadeOut('slow');
-                            $('#status_' + id).text('Void');
-                            $("#req-void_" + id).css('display', 'none');
-                            $('#prog_' + id).attr('class', 'void');
-                        }
-                    });
-                }
-            })
-        })
-    </script>
+    <script type="text/javascript" src="~/Scripts/_js_bootbox_void.js"></script>
 }
 else
 {
