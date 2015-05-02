@@ -49,9 +49,9 @@ namespace WebApplication9.Controllers
             var user = await GetCurrentUser();
             var req = new Requisition();
 
-            ViewBag.Divisions = db.Divisions.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
+            ViewBag.Divisions = db.Divisions.Where(x => x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
 
-            var itemCategories = db.ItemCategories.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
+            var itemCategories = db.ItemCategories.Where(x => x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
             ViewBag.ItemCategories = itemCategories;
             iCategories = itemCategories;
 
@@ -396,7 +396,7 @@ namespace WebApplication9.Controllers
 
         public JsonResult GetActiveDepartments(int id)
         {
-            var departments = db.Departments.Where(x => x.DivisionId == id && x.Status == ConfigureStatusEnum.Active).ToList();
+            var departments = db.Departments.Where(x => x.DivisionId == id && x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
             var result = Json(departments);
 
             return Json(new SelectList(departments, "Id", "Name"));
@@ -405,7 +405,7 @@ namespace WebApplication9.Controllers
 
         public JsonResult GetActiveAccounts(int id)
         {
-            var departmentAccounts = db.Accounts.Where(x => x.DepartmentId == id && x.Status == ConfigureStatusEnum.Active).ToList();
+            var departmentAccounts = db.Accounts.Where(x => x.DepartmentId == id && x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
             var result = Json(departmentAccounts);
 
             return Json(new SelectList(departmentAccounts, "Id", "Name"));

@@ -223,6 +223,7 @@
     <Content Include="Scripts\_js_RemoveItem.js" />
     <Content Include="Scripts\_js_forgotPassClick.js" />
     <Content Include="Scripts\_js_Search.js" />
+    <Content Include="Scripts\_js_searchResult.js" />
     <Content Include="Views\Account\Login.cshtml">
       <SubType>Code</SubType>
     </Content>
