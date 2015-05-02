@@ -21,12 +21,11 @@
             },
             data: $(this).serialize(),
             success: function (data) {
-                $("#search-form").slideUp('slow');
-                console.log('here');
                 resultsDiv.html(data);
             },
             complete: function () {
                 $('.spinner').fadeOut('slow');
+                $("#search-form").slideToggle(1000);
             }
         })
     })

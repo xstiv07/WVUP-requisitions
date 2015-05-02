@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    var errorMsg = 'Something failed, please try again';
     $("#division").change(function () {
         $("#department").empty();
         $("#account").empty();
