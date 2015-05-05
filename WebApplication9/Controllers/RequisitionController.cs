@@ -65,12 +65,15 @@ namespace WebApplication9.Controllers
             if (ModelState.IsValid && requisition.Items.Count > 0)
             {
                 var user = await GetCurrentUser();
+                TimeZoneInfo easternTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                TimeSpan offset = easternTimeZone.GetUtcOffset(DateTime.Now);
+
                 requisition.CFO_approval = false;
 
                 requisition.User_Id = user.Id;
                 requisition.Requisitioned_By = user.First_Name + " " + user.Last_Name;
                 requisition.Status = StatusEnum.Submitted;
-                requisition.Date_Created = DateTime.Now;
+                requisition.Date_Created = DateTime.Now.Add(offset);
 
                 foreach (var item in requisition.Items)
                 {
