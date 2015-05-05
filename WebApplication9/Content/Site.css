@@ -87,6 +87,9 @@ body {
 .form-horizontal .control-label {
     font-size: 13px;
 }
+.form-group{
+    padding-bottom:20px;
+}
 
 label > input {
     max-width: 150px;

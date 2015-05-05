@@ -1,54 +1,70 @@
 ﻿@model IdentitySample.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create User Account";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>Create User Account Manually</h2>
 
-@using (Html.BeginForm("Create", "UsersAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-error" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <div class="configure-create-account">
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.First_Name, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextBoxFor(model => model.First_Name, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Last_Name, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextBoxFor(model => model.Last_Name, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.Last_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.PasswordFor(model => model.Password, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.First_Name, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.First_Name, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Last_Name, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Last_Name, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label class="col-md-2 control-label">
-            Select User Role
-        </label>
-        <div class="col-md-10">
+        <label>Select User Roles:</label>
+        <div>
             @foreach (var item in (SelectList)ViewBag.RoleId)
             {
                 <input type="checkbox" name="SelectedRoles" value="@item.Value" class="checkbox-inline" />
@@ -56,15 +72,18 @@
             }
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Create" />
-        </div>
+
+    <div class="configure-control">
+        <span>
+            <input type="submit" value="Create" class="btn-mnu btn-default" />
+        </span>
+        <a href="@Url.Action("Index")">
+            <span>
+                <span class="btn-mnu btn-custom">Back To List</span>
+            </span>
+        </a>
     </div>
 }
-
-
-<script type="text/javascript" src="~/Scripts/_js_configure_getDivisionDepartments.js"></script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
