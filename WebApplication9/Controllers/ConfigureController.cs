@@ -8,13 +8,20 @@ using System.Web.Mvc;
 using WebApplication9.Data;
 using WebApplication9.Data.Helpers;
 using WebApplication9.Helpers;
+using WebApplication9.Repository;
 
 namespace WebApplication9.Controllers
 {
     [Authorize(Roles = "Admin, Purchasing Department")]
     public class ConfigureController : Controller
     {
-        Requisition1Entities db = new Requisition1Entities();
+        Requisition1Entities db = new Requisition1Entities(); //remove soon
+        private IRepository repo;
+
+        public ConfigureController(IRepository repo)
+        {
+            this.repo = repo;
+        }
 
         public ActionResult Index()
         {
@@ -33,8 +40,7 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Accounts.Add(model);
-                db.SaveChanges();
+                repo.AddAccount(model);
                 return RedirectToAction("Accounts");
             }
             GetAccountData();
@@ -43,7 +49,7 @@ namespace WebApplication9.Controllers
 
         public ActionResult EditAccount(int id)
         {
-            var accountToEdit = db.Accounts.Where(x => x.Id == id).First();
+            var accountToEdit = repo.GetAccount(id);
             GetAccountData();
             return View(accountToEdit);
         }
@@ -54,13 +60,11 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                //find an existing department and set its status to inactive
-                var oldAccount = db.Accounts.Find(model.Id);
+                var oldAccount = repo.GetAccount(model.Id);
                 oldAccount.Status = ConfigureStatusEnum.Inactive;
 
-                db.Accounts.Add(model); //add a new department to a database based on the model user entered
-
-                db.SaveChanges();
+                repo.AddAccount(model);
+                
                 return RedirectToAction("Accounts");
             }
             GetAccountData();
@@ -69,14 +73,14 @@ namespace WebApplication9.Controllers
 
         public ActionResult Accounts()
         {
-            var accounts = db.Accounts.ToList();
+            var accounts = repo.GetAccounts();
             return View(accounts);
         }
 
         public ActionResult CreateDepartment()
         {
-            ViewBag.Divisions = db.Divisions.ToList();
-            ViewBag.Users = db.Users.ToList();
+            ViewBag.Divisions = repo.GetDivisions();
+            ViewBag.Users = repo.GetUsers();
             return View();
         }
 
@@ -86,20 +90,20 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Departments.Add(model);
-                db.SaveChanges();
+                repo.AddDepartment(model);
+                
                 return RedirectToAction("Departments");
             }
-            ViewBag.Users = db.Users.ToList();
-            ViewBag.Divisions = db.Divisions.ToList();
+            ViewBag.Users = repo.GetUsers();
+            ViewBag.Divisions = repo.GetDivisions();
             return View(model);
         }
 
         public ActionResult EditDepartment(int id)
         {
-            var departmentToEdit = db.Departments.Where(x => x.Id == id).First();
-            ViewBag.Divisions = db.Divisions.ToList();
-            ViewBag.Users = db.Users.ToList();
+            var departmentToEdit = repo.GetDepartment(id);
+            ViewBag.Divisions = repo.GetDivisions();
+            ViewBag.Users = repo.GetUsers();
             return View(departmentToEdit);
         }
 
@@ -110,22 +114,21 @@ namespace WebApplication9.Controllers
             if (ModelState.IsValid)
             {
                 //find an existing department and set its status to inactive
-                var oldDepartment = db.Departments.Find(model.Id);
+                var oldDepartment = repo.GetDepartment(model.Id);
                 oldDepartment.Status = ConfigureStatusEnum.Inactive;
 
-                db.Departments.Add(model); //add a new department to a database based on the model user entered
-
-                db.SaveChanges();
+                repo.AddDepartment(model);
+               
                 return RedirectToAction("Departments");
             }
-            ViewBag.Divisions = db.Divisions.ToList();
-            ViewBag.Users = db.Users.ToList();
+            ViewBag.Divisions = repo.GetDivisions();
+            ViewBag.Users = repo.GetUsers();
             return View(model);
         }
 
         public ActionResult Departments()
         {
-            var departments = db.Departments.ToList();
+            var departments = repo.GetDepartments();
             return View(departments);
         }
 

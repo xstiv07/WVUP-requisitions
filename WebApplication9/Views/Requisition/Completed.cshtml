@@ -17,7 +17,11 @@
             @Html.EditorFor(model => requisition, "DetailedInfo")
         }
     </div>
-    Scripts.Render("~/bundles/collapsibleAndPagination");
+
+    <script src="~/Scripts/jquery.collapsiblepanel.js" type="text/javascript"></script>
+    <script src="~/Scripts/_js_Pagination.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js" type="text/javascript"></script>
 }
 else
 {

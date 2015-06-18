@@ -165,7 +165,6 @@ namespace testing111.Controllers
         {
             dynamic email = new Email(name);
             email.To = user.Email;
-            email.From = "xstiv07@gmail.com"; //purchasing department email goes here
             email.Recepient = user.First_Name;
             email.CallbackUrl = callbackUrl;
             await email.SendAsync();

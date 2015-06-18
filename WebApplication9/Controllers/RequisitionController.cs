@@ -14,24 +14,28 @@ using WebApplication9.Models;
 using System.Collections.Generic;
 using WebApplication9.Data.Helpers;
 using System.Web.Script.Serialization;
+using WebApplication9.Repository;
 
 namespace WebApplication9.Controllers
 {
     [Authorize]
     public class RequisitionController : Controller
     {
-        Requisition1Entities db = new Requisition1Entities();
-        static List<ItemCategory> iCategories;
-        static long _requis;
+        private IRepository repo; 
 
-        const int minExplanationLength = 10;
-        const int pageSize = 3;
-        const int approvalLimit = 3000;
-        const string emailFrom = "xstiv07@gmail.com"; //purchasing email address goes here
+        private static List<ItemCategory> iCategories;
+        private static long _requis;
 
-        MyUserManager _userManager;
+        private const int minExplanationLength = 10; // for dm and cfo to fill explanation
+        private const int pageSize = 3; // controls pagination - items per page
+        private const int approvalLimit = 3000;
 
-        public RequisitionController(){}
+        private MyUserManager _userManager;
+
+        public RequisitionController(IRepository repo)
+        {
+            this.repo = repo;
+        }
 
         public RequisitionController(MyUserManager userManager, MyRoleManager roleManager)
         {
@@ -49,11 +53,10 @@ namespace WebApplication9.Controllers
             var user = await GetCurrentUser();
             var req = new Requisition();
 
-            ViewBag.Divisions = db.Divisions.Where(x => x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
+            ViewBag.Divisions = repo.GetDivisions();
+            ViewBag.ItemCategories = repo.GetItemCategories();
 
-            var itemCategories = db.ItemCategories.Where(x => x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
-            ViewBag.ItemCategories = itemCategories;
-            iCategories = itemCategories;
+            iCategories = ViewBag.ItemCategories;
 
             return View(req);
         }
@@ -66,25 +69,24 @@ namespace WebApplication9.Controllers
             {
                 var user = await GetCurrentUser();
                 TimeZoneInfo easternTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-                TimeSpan offset = easternTimeZone.GetUtcOffset(DateTime.Now);
+                TimeSpan offset = easternTimeZone.GetUtcOffset(DateTime.Now); //used for appharbor to fix the date offset
 
-                requisition.CFO_approval = false;
+                requisition.CFO_approval = false; // trigger for CFO approval
 
                 requisition.User_Id = user.Id;
                 requisition.Requisitioned_By = user.First_Name + " " + user.Last_Name;
                 requisition.Status = StatusEnum.Submitted;
                 requisition.Date_Created = DateTime.Now.Add(offset);
 
-                foreach (var item in requisition.Items)
+                foreach (var item in requisition.Items) //checking every item in the req to see if any are over the limit
                 {
                     if (item.Price * item.Quantity > approvalLimit)
                         requisition.CFO_approval = true;
                 }
 
-                db.Requisitions.Add(requisition);
-                db.SaveChanges();
+                repo.AddRequisition(requisition);
                 
-                for (int i = 0; i < Request.Files.Count; i++)
+                for (int i = 0; i < Request.Files.Count; i++) // getting all files from the request and saving them to the db
                 {
                     HttpPostedFileBase file = Request.Files[i];
 
@@ -93,7 +95,7 @@ namespace WebApplication9.Controllers
 
                     if (file != null && file.ContentLength > 0)
                     {
-                        var originalDirectory = new DirectoryInfo(string.Format("{0}Uploads\\" + User.Identity.Name.ToString(), Server.MapPath(@"\")));
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}Uploads\\" + user.First_Name + "_" + user.Last_Name, Server.MapPath(@"\")));
                         string pathString = Path.Combine(originalDirectory.ToString(), requisition.RequisitionId.ToString());
                         var fileName1 = Path.GetFileName(file.FileName);
                         bool isExists = Directory.Exists(pathString);
@@ -103,39 +105,32 @@ namespace WebApplication9.Controllers
                         var path = string.Format("{0}\\{1}", pathString, file.FileName);
                         file.SaveAs(path);
 
-                        db.Files.Add(new WebApplication9.Data.File()
-                        {
-                            //searhing for the first occurence of unique Id - associating file with an item based on that
-                            ItemId = db.Items.Where(x => x.Unique == unq).Select(x => x.ItemId).First(),
-                            FileName = fileName1,
-                            FileLink = "~/Uploads/" + User.Identity.Name.ToString() + "/" + requisition.RequisitionId.ToString() + "/" + fileName1
-                        });
+                        repo.AddFile(unq, fileName1, requisition, user);
                     }
                 }
-                db.SaveChanges();
+                repo.Save();
 
                 _requis = requisition.RequisitionId;
 
-                SendEmailNotification(requisition, user);
+                SendEmailNotification(requisition, user); //sends email to the DM that requisition from user x was submitted
 
                 return RedirectToAction("Display");
             }
-
-            ViewBag.Divisions = db.Divisions.ToList();
-            ViewBag.ItemCategories = iCategories;
+            //will fire if for some reason javascript validation didn't work and user was able to submitt invalid form to the server
+            ViewBag.Divisions = repo.GetDivisions();
+            ViewBag.ItemCategories = repo.GetItemCategories();
             return View(requisition);
         }
 
         private void SendEmailNotification(Requisition requisition, MyUser user)
         {
-            var currentRequisitionDepartment = db.Departments.Where(x => x.Id == requisition.DepartmentId).First();
+            var currentRequisitionDepartment = repo.GetCurrentRequisitionDepartment(requisition);
             var departmentManager = UserManager.FindById((long)currentRequisitionDepartment.ManagerId);
             string targetEmail = departmentManager.Email;
 
             var email = new NewRequisitionEmail
             {
                 To = targetEmail,
-                From = emailFrom, //purchasing department email goes here
                 Recepient = departmentManager.First_Name,
                 UserName = user.First_Name + " " + user.Last_Name
             };
@@ -143,21 +138,24 @@ namespace WebApplication9.Controllers
             email.Send();
         }
 
+        //calls a partial item view that is triggered when user click add another item in the create view
         public ActionResult ItemEntryRow()
         {
             ViewBag.ItemCategories = iCategories;
             return PartialView("_ItemEntryEditor", new Item());
         }
 
+        //displays a requisition when user submits a req
         public ActionResult Display()
         {
-            var requisitionToDisplay = db.Requisitions.Where(x => x.RequisitionId == _requis).First();
+            var requisitionToDisplay = repo.GetRequisition(_requis);
             return View(requisitionToDisplay);
         }
 
+        //populates req files and calls a file partial view with this data
         public PartialViewResult Attachments(int id)
         {
-            var files = db.Files.Where(x => x.ItemId == id).ToList();
+            List<WebApplication9.Data.File> files = repo.GetFiles(id);
             return PartialView(files);
         }
 
@@ -166,16 +164,18 @@ namespace WebApplication9.Controllers
             return File(link, MediaTypeNames.Application.Octet, name);
         }
 
+        //controls print action
         public async Task<ActionResult> Print(int id)
         {
             var user = await GetCurrentUser();
             Requisition reqToPrint = null;
 
             //if it is a regualr user or a department manager - limit the query to navigate only user's own requisitions
+            //simple users shouldn't be able to navigate to someone else's print view via the url
             if (user.Roles.Count != 0)
-                reqToPrint = db.Requisitions.Where(x => x.RequisitionId == id).FirstOrDefault();
+                reqToPrint = repo.GetRequisition(id);
             else
-                reqToPrint = db.Requisitions.Where(x => x.RequisitionId == id && x.User_Id == user.Id).FirstOrDefault();
+                reqToPrint = repo.GetCurrentUserRequistion(id, user);
 
             if (reqToPrint == null)
                 return HttpNotFound();
@@ -183,6 +183,7 @@ namespace WebApplication9.Controllers
             return View(reqToPrint);
         }
 
+        //controls void req action, works similar to the print action
         public async Task<ActionResult> Void(int id)
         {
             var user = await GetCurrentUser();
@@ -190,14 +191,14 @@ namespace WebApplication9.Controllers
 
             //if it is a regular user - limit the query to navigate only user's own requisitions
             if (user.Roles.Count != 0)
-                reqToVoid = db.Requisitions.Where(x => x.RequisitionId == id).FirstOrDefault();
+                reqToVoid = repo.GetRequisition(id);
             else
-                reqToVoid = db.Requisitions.Where(x => x.RequisitionId == id && x.User_Id == user.Id).FirstOrDefault();
+                reqToVoid = repo.GetCurrentUserRequistion(id, user);
 
             if (reqToVoid != null)
             {
                 reqToVoid.Status = StatusEnum.Void;
-                db.SaveChanges();
+                repo.Save();
             }
             else
                 return HttpNotFound();
@@ -209,13 +210,14 @@ namespace WebApplication9.Controllers
             return View();
         }
 
+        //controls CFO review action
         [Authorize(Roles = "Admin, Chief Financial Officer")]
         public async Task<ActionResult> ReviewCFO(int? page)
         {
             var user = await GetCurrentUser();
             int pageNumber = (page ?? 1);
 
-            var reqsToReview = db.Requisitions.Where(x => x.CFO_approval == true && x.Status == StatusEnum.Submitted).OrderByDescending(x => x.Date_Created).ToPagedList(pageNumber, pageSize);
+            var reqsToReview = repo.GetCFORequisitions(pageNumber, pageSize);
 
             if (Request.IsAjaxRequest())
             {
@@ -228,7 +230,7 @@ namespace WebApplication9.Controllers
         [HttpPost]
         public async Task<JsonResult> ReviewCFO(int id, string decision, string explanation)
         {
-            var currentReq = db.Requisitions.Where(x => x.RequisitionId == id).First();
+            var currentReq = repo.GetRequisition(id);
             var user = await GetCurrentUser();
 
             if (decision == "approve")
@@ -238,17 +240,18 @@ namespace WebApplication9.Controllers
 
             currentReq.CFO_Decision_By = user.First_Name + " " + user.Last_Name;
             currentReq.CFO_Explanation = explanation;
-            db.SaveChanges();
+            repo.Save();
             return Json("Success", JsonRequestBehavior.AllowGet);
         }
 
+        //controls DM review action
         [Authorize(Roles = "Admin, Department Manager")]
         public async Task<ActionResult> Review(int? page)
         {
             var user = await GetCurrentUser();
             int pageNumber = (page ?? 1);
 
-            var reqsToReview = db.Requisitions.Where(x => x.Account.Department.ManagerId == user.Id && ((x.Status == StatusEnum.Aproved_CFO) || x.CFO_approval == false && x.Status == StatusEnum.Submitted)).OrderByDescending(x => x.Date_Created).ToPagedList(pageNumber, pageSize);
+            var reqsToReview = repo.GetRequisitionsToReview(user, pageNumber, pageSize);
 
             if (Request.IsAjaxRequest())
             {
@@ -262,7 +265,7 @@ namespace WebApplication9.Controllers
         public async Task <ActionResult> Review(int id, string decision, string explanation)
         {
             if (explanation.Length >= minExplanationLength){
-                var currentReq = db.Requisitions.Find(id);
+                var currentReq = repo.GetRequisition(id);
                 var user = await GetCurrentUser();
 
                 if (decision == "approve")
@@ -273,7 +276,7 @@ namespace WebApplication9.Controllers
                 currentReq.Explanation = explanation;
                 currentReq.Decision_By = user.First_Name + " " + user.Last_Name;
                 
-                db.SaveChanges();
+                repo.Save();
                 return Json(String.Empty, JsonRequestBehavior.AllowGet);
             }
             return View();
@@ -285,7 +288,7 @@ namespace WebApplication9.Controllers
 
             var user = await GetCurrentUser();
 
-            var myRequisitions = db.Requisitions.Where(x => x.User_Id == user.Id).OrderByDescending(x => x.Date_Created).ToPagedList(pageNumber, pageSize);
+            var myRequisitions = repo.GetCurrentUserRequisitions(user, pageNumber, pageSize);
 
             if (Request.IsAjaxRequest())
                 return PartialView("MyRequisitions", myRequisitions);
@@ -298,7 +301,7 @@ namespace WebApplication9.Controllers
         {
             int pageNumber = (page ?? 1);
 
-            var reqsToManage = db.Requisitions.Where(x => x.Status == StatusEnum.Approved).OrderByDescending(x => x.Date_Created).ToPagedList(pageNumber, pageSize);
+            var reqsToManage = repo.GetApprovedRequisitions(pageNumber ,pageSize);
 
             if (Request.IsAjaxRequest())
                 return PartialView("Manage", reqsToManage);
@@ -311,11 +314,10 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentRequisition = db.Requisitions.Find(id);
+                var currentRequisition = repo.GetRequisition(id);
                 currentRequisition.Status = StatusEnum.Ordered; //changed status complete to status ordered
                 extra.RequisitionId = id;
-                db.ReqAdds.Add(extra);
-                db.SaveChanges();
+                repo.AddExtraInfo(extra);
                 return Json(String.Empty, JsonRequestBehavior.AllowGet);
             }
             return View();
@@ -325,7 +327,7 @@ namespace WebApplication9.Controllers
         public ActionResult Ordered(int? page)
         {
             int pageNumber = (page ?? 1);
-            var orderedRequisitions = db.Requisitions.Where(x => x.Status == StatusEnum.Ordered).OrderByDescending(x => x.Date_Created).ToPagedList(pageNumber, pageSize);
+            var orderedRequisitions = repo.GetOrderedRequisitions(pageNumber, pageSize);
 
             if (Request.IsAjaxRequest())
                 return PartialView(orderedRequisitions);
@@ -336,9 +338,9 @@ namespace WebApplication9.Controllers
         [Authorize(Roles = "Admin, Purchasing Department")]
         public JsonResult MarkComplete(int id)
         {
-            var requisitionMarkComplete = db.Requisitions.Find(id);
+            var requisitionMarkComplete = repo.GetRequisition(id);
             requisitionMarkComplete.Status = StatusEnum.Complete;
-            db.SaveChanges();
+            repo.Save();
             return Json("Success", JsonRequestBehavior.AllowGet);
         }
 
@@ -346,7 +348,7 @@ namespace WebApplication9.Controllers
         public ActionResult Completed(int? page)
         {
             int pageNumber = (page ?? 1);
-            var completedRequistioins = db.Requisitions.Where(x => x.Status == StatusEnum.Complete).OrderByDescending(x => x.Date_Created).ToPagedList(pageNumber, pageSize);
+            var completedRequistioins = repo.GetCompletedRequisitions(pageNumber, pageSize);
             
             if (Request.IsAjaxRequest())
                 return PartialView(completedRequistioins);
@@ -359,19 +361,22 @@ namespace WebApplication9.Controllers
         {
             if (Request.IsAjaxRequest())
                 return HttpNotFound();
-            ViewBag.Departments = db.Departments.ToList();
-            ViewBag.Accounts = db.Accounts.ToList();
-            ViewBag.Divisions = db.Divisions.ToList();
-            ViewBag.Funds = db.Funds.ToList();
+
+            ViewBag.Departments = repo.GetDepartments();
+            ViewBag.Accounts = repo.GetAccounts();
+            ViewBag.Divisions = repo.GetDivisions();
+            ViewBag.Funds = repo.getFunds();
+
             return View();
         }
-
+        //partial view that displays search results - called from the search view
         public ActionResult _SearchResult(SearchViewModel model, int? page)
         {
 
             int pageNumber = (page ?? 1);
             IQueryable<Requisition> results = null;
 
+            //if the model data is not empty performm search, otherwise return empty list
             if (model.AccountNumber > 0
                 || model.AccountName > 0
                 || model.FundNumber > 0
@@ -386,20 +391,21 @@ namespace WebApplication9.Controllers
                 || model.RequisitionedBy != null)
             {
 
-                results = db.Requisitions.Where(x => x.RequisitionId > 0);
-                results = SearchQueries.ProcessSearchInput(model, results);
+                results = repo.GetAllRequisitions();
+                results = SearchQueries.ProcessSearchInput(model, results); // performs filtering based on user query (model)
 
                 ViewBag.total = results.Count();
 
-                return PartialView(results.ToPagedList(pageNumber, pageSize));
+                return PartialView(results.ToPagedList(pageNumber, pageSize)); // returns only results for the current page (page limit)
             }
 
             return PartialView(results.ToPagedList(pageNumber, pageSize));
         }
 
+        //helper method to get all departments frmo the db
         public JsonResult GetActiveDepartments(int id)
         {
-            var departments = db.Departments.Where(x => x.DivisionId == id && x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
+            var departments = repo.GetActiveDepartments(id);
             var result = Json(departments);
 
             return Json(new SelectList(departments, "Id", "Name"));
@@ -408,7 +414,7 @@ namespace WebApplication9.Controllers
 
         public JsonResult GetActiveAccounts(int id)
         {
-            var departmentAccounts = db.Accounts.Where(x => x.DepartmentId == id && x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
+            var departmentAccounts = repo.GetActiveAccounts(id);
             var result = Json(departmentAccounts);
 
             return Json(new SelectList(departmentAccounts, "Id", "Name"));

@@ -11,12 +11,6 @@ namespace IdentitySample
                         "~/Scripts/_js_AddAnother.js"
                         ));
 
-            bundles.Add(new ScriptBundle("~/bundles/collapsibleAndPagination").Include(
-                        "~/Scripts/jquery.collapsiblepanel.js",
-                        "~/Scripts/_js_Pagination.js"
-                        ));
-
-
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-2.1.3.min.js",
                         "~/Scripts/jquery-ui-1.11.2.min.js",
