@@ -1,2 +1,7 @@
 /packages
 /WebApplication9/Web.config
+/WebApplication9/obj/Release/CSAutoParameterize/original/Web.config
+/WebApplication9/obj/Release/CSAutoParameterize/transformed/Web.config
+/WebApplication9/obj/Release/Package/PackageTmp/Web.config
+/WebApplication9/obj/Release/TransformWebConfig/original/Web.config
+/WebApplication9/obj/Release/TransformWebConfig/transformed/Web.config
