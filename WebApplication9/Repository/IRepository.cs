@@ -30,6 +30,8 @@ namespace WebApplication9.Repository
 
         IPagedList<Requisition> GetCurrentUserRequisitions(MyUser user, int pageNumber, int pageSize);
 
+        IQueryable<Requisition> GetCurrentUserRequisitions(MyUser user);
+
         IPagedList<Requisition> GetApprovedRequisitions(int pageNumber, int pageSize);
 
         IPagedList<Requisition> GetOrderedRequisitions(int pageNumber, int pageSize);
@@ -61,5 +63,25 @@ namespace WebApplication9.Repository
         void AddDepartment(Department model);
 
         Department GetDepartment(int id);
+
+        void AddFunds(Fund model);
+
+        Fund GetFund(int id);
+
+        void AddDivision(Division model);
+
+        Division GetDivision(int id);
+
+        List<Department> GetActiveDepartments();
+
+        void AddItemCategory(ItemCategory model);
+
+        ItemCategory GetItemCategory(int p);
+
+        List<Fund> GetActiveFunds();
+
+        List<Division> GetActiveDivisions();
+
+        List<Department> GetActiveDivsionDepartments(int id);
     }
 }

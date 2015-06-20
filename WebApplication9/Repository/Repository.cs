@@ -166,5 +166,74 @@ namespace WebApplication9.Repository
         {
             return repo.Departments.Find(id);
         }
+
+
+        public void AddFunds(Fund model)
+        {
+            repo.Funds.Add(model);
+            repo.SaveChanges();
+        }
+
+
+        public Fund GetFund(int id)
+        {
+            return repo.Funds.Find(id);
+        }
+
+
+        public void AddDivision(Division model)
+        {
+            repo.Divisions.Add(model);
+            repo.SaveChanges();
+        }
+
+        public Division GetDivision(int id)
+        {
+            return repo.Divisions.Find(id);
+        }
+
+        public List<Department> GetActiveDepartments()
+        {
+            return repo.Departments.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
+        }
+
+
+        public void AddItemCategory(ItemCategory model)
+        {
+            repo.ItemCategories.Add(model);
+            repo.SaveChanges();
+        }
+
+        public ItemCategory GetItemCategory(ItemCategory model)
+        {
+            return repo.ItemCategories.Find(model.ItemCategoryId);
+        }
+
+        public List<Fund> GetActiveFunds()
+        {
+            return repo.Funds.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
+        }
+
+        public List<Division> GetActiveDivisions()
+        {
+            return repo.Divisions.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
+        }
+
+
+        public ItemCategory GetItemCategory(int p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Department> GetActiveDivsionDepartments(int id)
+        {
+            return repo.Departments.Where(x => x.DivisionId == id && x.Status == ConfigureStatusEnum.Active).ToList();
+        }
+
+
+        public IQueryable<Requisition> GetCurrentUserRequisitions(MyUser user)
+        {
+            return repo.Requisitions.Where(x => x.User_Id == user.Id);
+        }
     }
 }

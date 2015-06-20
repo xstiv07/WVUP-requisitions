@@ -10,13 +10,16 @@ using System.Web.Mvc;
 using WebApplication9.Data;
 using WebApplication9.Data.Helpers;
 using WebApplication9.Helpers;
+using WebApplication9.Repository;
 
 namespace IdentitySample.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        Requisition1Entities db = new Requisition1Entities();
+        //Requisition1Entities db = new Requisition1Entities();
+
+        private IRepository repo;
         private MyUserManager _userManager;
         public ManageController()
         {
@@ -46,7 +49,7 @@ namespace IdentitySample.Controllers
         {
             var user = await GetCurrentUser();
             double result;
-            var myRequisitions = db.Requisitions.Where(x => x.User_Id == user.Id);
+            var myRequisitions = repo.GetCurrentUserRequisitions(user);
 
             double positive = myRequisitions.Where(x => x.Status == StatusEnum.Complete || x.Status == StatusEnum.Approved || x.Status == StatusEnum.Aproved_CFO).ToList().Count;
             int voidReq = myRequisitions.Where(x => x.Status == StatusEnum.Void).ToList().Count;

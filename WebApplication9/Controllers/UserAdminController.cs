@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication9.Data;
+using WebApplication9.Repository;
 
 namespace IdentitySample.Controllers
 {
@@ -20,7 +21,8 @@ namespace IdentitySample.Controllers
         private MyUserManager _userManager;
         private MyRoleManager _roleManager;
 
-        Requisition1Entities db = new Requisition1Entities();
+        IRepository repo;
+
         public UsersAdminController()
         {
         }
@@ -84,7 +86,7 @@ namespace IdentitySample.Controllers
         public async Task<ActionResult> Create()
         {
             //Get the list of Roles
-            var departments = db.Departments.ToList();
+            var departments = repo.GetDepartments();
             ViewBag.Departments = departments;
             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
             return View();
@@ -249,7 +251,7 @@ namespace IdentitySample.Controllers
 
         public JsonResult GetDivisionDepartments(int id)
         {
-            var divisionDepartments = db.Departments.Where(x => x.DivisionId == id).ToList();
+            var divisionDepartments = repo.GetActiveDepartments(id);
             var result = Json(divisionDepartments);
 
             return Json(new SelectList(divisionDepartments, "Id", "Name"));

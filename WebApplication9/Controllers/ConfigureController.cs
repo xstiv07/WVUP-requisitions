@@ -15,7 +15,6 @@ namespace WebApplication9.Controllers
     [Authorize(Roles = "Admin, Purchasing Department")]
     public class ConfigureController : Controller
     {
-        Requisition1Entities db = new Requisition1Entities(); //remove soon
         private IRepository repo;
 
         public ConfigureController(IRepository repo)
@@ -142,8 +141,7 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Funds.Add(model);
-                db.SaveChanges();
+                repo.AddFunds(model);
                 return RedirectToAction("Funds");
             }
             return View(model);
@@ -151,7 +149,7 @@ namespace WebApplication9.Controllers
 
         public ActionResult EditFund(int id)
         {
-            var fundToEdit = db.Funds.Where(x => x.Id == id).First();
+            var fundToEdit = repo.GetFund(id);
             return View(fundToEdit);
         }
 
@@ -161,13 +159,12 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                //find an existing department and set its status to inactive
-                var oldFund = db.Funds.Find(model.Id);
+
+                var oldFund = repo.GetFund(model.Id);
                 oldFund.Status = ConfigureStatusEnum.Inactive;
 
-                db.Funds.Add(model);
-
-                db.SaveChanges();
+                repo.AddFunds(model);
+          
                 return RedirectToAction("Funds");
             }
             return View(model);
@@ -175,7 +172,7 @@ namespace WebApplication9.Controllers
 
         public ActionResult Funds()
         {
-            var funds = db.Funds.ToList();
+            var funds = repo.getFunds();
             return View(funds);
         }
 
@@ -191,8 +188,8 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Divisions.Add(model);
-                db.SaveChanges();
+                repo.AddDivision(model);
+                
                 return RedirectToAction("Divisions");
             }
             GetDepartmentsViewBag();
@@ -201,7 +198,8 @@ namespace WebApplication9.Controllers
 
         public ActionResult EditDivision(int id)
         {
-            var divisionToEdit = db.Divisions.Where(x => x.Id == id).First();
+            var divisionToEdit = repo.GetDivision(id);
+
             return View(divisionToEdit);
         }
 
@@ -211,13 +209,12 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                //find an existing department and set its status to inactive
-                var oldDivision = db.Divisions.Find(model.Id);
+                var oldDivision = repo.GetDivision(model.Id);
+
                 oldDivision.Status = ConfigureStatusEnum.Inactive;
 
-                db.Divisions.Add(model); //add a new department to a database based on the model user entered
+                repo.AddDivision(model);
 
-                db.SaveChanges();
                 return RedirectToAction("Divisions");
             }
             return View(model);
@@ -225,13 +222,13 @@ namespace WebApplication9.Controllers
 
         public ActionResult Divisions()
         {
-            var divisions = db.Divisions.ToList();
+            var divisions = repo.GetDivisions();
             return View(divisions);
         }
 
         public JsonResult GetDivisionDepartments(int id)
         {
-            var divisionDepartments = db.Departments.Where(x => x.DivisionId == id && x.Status == ConfigureStatusEnum.Active).ToList();
+            var divisionDepartments = repo.GetActiveDivsionDepartments(id);
             var result = Json(divisionDepartments);
 
             return Json(new SelectList(divisionDepartments, "Id", "Name"));
@@ -241,21 +238,21 @@ namespace WebApplication9.Controllers
         {
             GetActiveDepartmentsViewBag();
 
-            var funds = db.Funds.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
-            var divisions = db.Divisions.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
+            var funds = repo.GetActiveFunds();
+            var divisions = repo.GetActiveDivisions();
             ViewBag.Funds = funds;
             ViewBag.Divisions = divisions;
         }
 
         private void GetDepartmentsViewBag()
         {
-            var departments = db.Departments.ToList();
+            var departments = repo.GetDepartments();
             ViewBag.Departments = departments;
         }
 
         private void GetActiveDepartmentsViewBag()
         {
-            var departments = db.Departments.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
+            var departments = repo.GetActiveDepartments();
             ViewBag.Departments = departments;
         }
 
@@ -270,8 +267,8 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ItemCategories.Add(model);
-                db.SaveChanges();
+                repo.AddItemCategory(model);
+                
                 return RedirectToAction("ItemCategories");
             }
             return View(model);
@@ -279,7 +276,7 @@ namespace WebApplication9.Controllers
 
         public ActionResult EditItemCategory(int id)
         {
-            var itemCategoryToEdit = db.ItemCategories.Where(x => x.ItemCategoryId == id).First();
+            var itemCategoryToEdit = repo.GetItemCategory(id);
             return View(itemCategoryToEdit);
         }
 
@@ -290,12 +287,11 @@ namespace WebApplication9.Controllers
             if (ModelState.IsValid)
             {
                 //find an existing department and set its status to inactive
-                var oldItemCategory = db.ItemCategories.Find(model.ItemCategoryId);
+                var oldItemCategory = repo.GetItemCategory(model.ItemCategoryId);
                 oldItemCategory.Status = ConfigureStatusEnum.Inactive;
 
-                db.ItemCategories.Add(model); //add a new department to a database based on the model user entered
-
-                db.SaveChanges();
+                repo.AddItemCategory(model);
+                
                 return RedirectToAction("ItemCategories");
             }
             return View(model);
@@ -303,7 +299,7 @@ namespace WebApplication9.Controllers
 
         public ActionResult ItemCategories()
         {
-            var itemCategories = db.ItemCategories.ToList();
+            var itemCategories = repo.GetItemCategories();
             return View(itemCategories);
         }
 
