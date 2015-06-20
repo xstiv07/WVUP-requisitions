@@ -1,0 +1,7 @@
+﻿@model WebApplication9.Data.File
+
+<div class="attachments">
+    <a href='@Url.Action("Download", "Requisition", new { link = Model.FileLink, name = Model.FileName })'>
+        <span class="icono-file"></span>
+    </a>
+</div>

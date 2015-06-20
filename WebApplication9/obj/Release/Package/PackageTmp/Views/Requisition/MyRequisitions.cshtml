@@ -1,0 +1,94 @@
+﻿@model PagedList.IPagedList<WebApplication9.Data.Requisition>
+@using PagedList.Mvc;
+@{ViewBag.Title = "My Requisitions";}
+
+
+@if (Model.Count > 0)
+{
+    @section AddToHead{
+        <link href="~/Content/bootbox.css" rel="stylesheet" />
+    }
+
+    <div id="hty">
+        @if (Model.PageCount > 1)
+        {
+            <div id="myPager">
+                @Html.PagedListPager(Model, page => Url.Action("MyRequisitions", new { page = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+            </div>
+        }
+
+        @Html.EditorFor(model => Model, "MyRequisitionsTemplate")
+    </div>
+
+    <script src="~/Scripts/jquery.collapsiblepanel.js" type="text/javascript"></script>
+    <script src="~/Scripts/_js_Pagination.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/_js_bootbox_void.js"></script>
+}
+else
+{
+    <div class="discuss">
+        <h2>Currently, you don't have any submitted requisitions.</h2>
+        <p>If you need help with the form preparation, you can check out <a style="color: #4ECDC4" href="http://www.wvup.edu/about/business-office/purchasing-office/purchasing-procedures/">purchasing procedures</a> for more information,<br /> or contact the purchasing office.</p>
+    </div>
+
+    <div class="feed">
+        <div style="font-size:8px; text-align: right">
+            <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a>
+        </div>
+        <script type="text/javascript">document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script>
+        <script type="text/javascript">            (function () { var params = { rssmikle_url: "http://feeds.reuters.com/reuters/topNews|http://feeds.reuters.com/reuters/globalmarketsNews|http://feeds.reuters.com/reuters/financialsNews", rssmikle_frame_width: "300", rssmikle_frame_height: "400", frame_height_by_article: "0", rssmikle_target: "_blank", rssmikle_font: "'Trebuchet MS', Verdana, Arial", rssmikle_font_size: "10", rssmikle_border: "on", responsive: "off", rssmikle_css_url: "", text_align: "left", text_align2: "left", corner: "off", scrollbar: "off", autoscroll: "on", scrolldirection: "up", scrollstep: "10", mcspeed: "20", sort: "New", rssmikle_title: "on", rssmikle_title_sentence: "Latest Financial and World News", rssmikle_title_link: "", rssmikle_title_bgcolor: "#435A6B", rssmikle_title_color: "#FFFFFF", rssmikle_title_bgimage: "", rssmikle_item_bgcolor: "#FFFFFF", rssmikle_item_bgimage: "", rssmikle_item_title_length: "55", rssmikle_item_title_color: "#0066FF", rssmikle_item_border_bottom: "on", rssmikle_item_description: "on", item_link: "off", rssmikle_item_description_length: "250", rssmikle_item_description_color: "#666666", rssmikle_item_date: "gl1", rssmikle_timezone: "Etc/GMT", datetime_format: "%b %e, %Y %l:%M:%S %p", item_description_style: "text", item_thumbnail: "full", item_thumbnail_selection: "auto", article_num: "15", rssmikle_item_podcast: "off", keyword_inc: "", keyword_exc: "" }; feedwind_show_widget_iframe(params); })();</script>
+    </div>
+
+    <div class="slider-holder">
+        <h2>Quick tips</h2>
+
+        <div id="slider1_container" style="position: relative; width: 600px; height: 100px;">
+            <!-- Slides Container -->
+            <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 600px; height: 100px;">
+                <div>
+                    <p>
+                        Anything over $3,000 must have a minimum of three attached price quotes for competitive pricing.  These requisitions also must be approved by the CFO, in addition to the department budget manager.
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        You can change the order of the line items before submitting the requisition by simply dragging them.
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        After you submit your requisition, it should be approved by the department manager.
+                    </p>
+                </div>
+            </div>
+
+            <div u="navigator" class="jssorb13" style="bottom: 16px; right: 6px;">
+                <!-- bullet navigator item prototype -->
+                <div u="prototype"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/jssor.slider.mini.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            var options = {
+                $AutoPlay: false,
+                $SlideDuration: 700,
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$,
+                    $ChanceToShow: 2,
+                    $AutoCenter: 1,
+                    $Steps: 1,
+                    $Lanes: 1,
+                    $SpacingX: 10,
+                    $SpacingY: 10,
+                    $Orientation: 1
+                }
+            };
+            var jssor_slider1 = new $JssorSlider$('slider1_container', options);
+        });
+    </script>
+}

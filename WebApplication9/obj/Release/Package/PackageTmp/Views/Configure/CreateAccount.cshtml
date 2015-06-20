@@ -1,0 +1,82 @@
+﻿@model WebApplication9.Data.Account
+
+@{
+    ViewBag.Title = "Create Account";
+}
+
+<h2>Create Account</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="configure-create-account">
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Department.Division.Name, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.DropDownListFor(model => model.DivisionId, new SelectList(ViewBag.Divisions, "Id", "Name"), "Select a Division", new { @class = "custom-input form-control inp-b", @id = "division" })
+                    @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Department.Name, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.DropDownListFor(model => model.DepartmentId, new SelectList(String.Empty, "Id", "Name"), "Select a Department", new { @class = "custom-input form-control inp-b", @id = "department" })
+                    @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Fund.Number, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.DropDownListFor(model => model.FundId, new SelectList(ViewBag.Funds, "Id", "Number"), "Select a Fund", new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.FundId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.String, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextBoxFor(model => model.String, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.String, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.Label("DA Name", new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="configure-control">
+                <span>
+                    <input type="submit" value="Create" class="btn-mnu btn-default" />
+                </span>
+                <a href="@Url.Action("Accounts")">
+                    <span>
+                        <span class="btn-mnu btn-custom">Back To List</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript" src="~/Scripts/_js_configure_getDivisionDepartments.js"></script>

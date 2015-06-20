@@ -1,0 +1,94 @@
+﻿@model WebApplication9.Data.Requisition
+
+@{
+    var requisitionTotal = Model.Items.Sum(x => x.Quantity * x.Price);
+}
+<div class="requisition-num">
+    # @Html.DisplayFor(model => model.RequisitionId)
+</div>
+<div class="requisition-print">
+    <a href='@Url.Action("Print", "Requisition", new { id= Model.RequisitionId })'>
+        <i class="fa fa-print fa-lg"></i>
+    </a>
+</div>
+
+<div id="container_check">
+    <div id="collapsible-panels">
+        <div class="expandable-panel-heading">
+            <div class="requisition-header-container">
+                <div class="requisition-first-row">
+
+                    <div class="rmi row-main-inline">
+                        @Html.LabelFor(model => model.Date_Created, new { @class = "control-label" })
+                        <div class="requisition-detail-content">
+                            @Html.DisplayFor(model => model.Date_Created, new { @class = "custom-input form-control inp-b" })
+                        </div>
+                    </div>
+
+                    <div class="rmi row-main-inline">
+                        @Html.LabelFor(model => model.Requisitioned_By, new { @class = "control-label" })
+                        <div class="requisition-detail-content">
+                            @Html.DisplayFor(model => model.Requisitioned_By, new { @class = "custom-input form-control inp-b" })
+                        </div>
+                    </div>
+
+                    <div class="rmi row-main-inline">
+                        @Html.LabelFor(model => model.Status, new { @class = "control-label" })
+                        <div class="requisition-detail-content">
+                            <span id="status_@Model.RequisitionId">@Html.DisplayFor(model => model.Status)</span>
+                        </div>
+                    </div>
+
+                    <div class="rmi row-main-inline">
+                        <label>Total</label>
+                        <div class="requisition-detail-content">
+                            <label>$@requisitionTotal</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rmi row-main-inline">
+                    @Html.LabelFor(model => model.Account.String, new { @class = "control-label" })
+                    <div class="requisition-detail-content limited">
+                        @Html.DisplayFor(model => model.Account.String, new { @class = "custom-input form-control inp-b" })
+                    </div>
+                </div>
+
+                <div class="rmi row-main-inline">
+                    @Html.LabelFor(model => model.Account.Name, new { @class = "control-label" })
+                    <div class="requisition-detail-content limited">
+                        @Html.DisplayFor(model => model.Account.Name, new { @class = "custom-input form-control inp-b" })
+                    </div>
+                </div>
+
+                <div class="rmi row-main-inline">
+                    @Html.LabelFor(model => model.Account.Fund.Number, new { @class = "control-label" })
+                    <div class="requisition-detail-content limited">
+                        @Html.DisplayFor(model => model.Account.Fund.Number, new { @class = "custom-input form-control inp-b" })
+                    </div>
+                </div>
+
+                <div class="rmi row-main-inline">
+                    @Html.LabelFor(model => model.Account.Department.Division.Name, new { @class = "control-label" })
+                    <div class="requisition-detail-content limited">
+                        @Html.DisplayFor(model => model.Account.Department.Division.Name, new { @class = "custom-input form-control inp-b" })
+                    </div>
+                </div>
+
+                <div class="rmi row-main-inline">
+                    @Html.LabelFor(model => model.Account.Department.Name, new { @class = "control-label" })
+                    <div class="requisition-detail-content limited">
+                        @Html.DisplayFor(model => model.Account.Department.Name, new { @class = "custom-input form-control inp-b" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="icono-hamburger"></div>
+
+        </div>
+
+        <div class="check">
+            @Html.EditorFor(x => x.Items)
+        </div>
+    </div>
+</div>

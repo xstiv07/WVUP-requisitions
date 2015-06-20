@@ -1,0 +1,48 @@
+﻿@model WebApplication9.Data.MyUser
+@section AddToHead{
+    @Styles.Render("~/Content/datatables")
+}
+
+<h2>@Html.DisplayFor(model => model.UserName)</h2>
+
+<table class="data-table display" id="data-table">
+    <thead>
+        <tr>
+            <th>
+                List of roles for this user
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in ViewBag.RoleNames)
+        {
+            <tr>
+                <td>
+                    @item
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewBag.RoleNames.Count == 0)
+{
+    <p>No roles found for this user.</p>
+}
+
+<div class="configure-control">
+    <a href="@Url.Action("Index", "UsersAdmin")">
+        <span>
+            <span class="btn-mnu btn-custom">Back To List</span>
+        </span>
+    </a>
+</div>
+
+@Scripts.Render("~/bundles/datatables")
+
+<script>
+    $(document).ready(function () {
+        $('#data-table').DataTable();
+    });
+</script>

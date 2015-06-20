@@ -1,0 +1,147 @@
+﻿@model WebApplication9.Data.Requisition
+@{
+    Layout = null;
+    var requisitionTotal = Model.Items.Sum(x => x.Quantity * x.Price);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Print Requisition</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body class="print-body">
+    <div class="print-page-wrap">
+        <div class="print-header">
+            requisition
+        </div>
+
+        <div class="requisition-status">
+            @Html.LabelFor(model => model.Requisitioned_By, new { @class = "control-label print-label" })
+            <div>
+                @Html.DisplayFor(model => model.Requisitioned_By)
+            </div>
+            @Html.LabelFor(model => model.Status, new { @class = "control-label print-label" })
+            <div>
+                @Html.DisplayFor(model => model.Status)
+            </div>
+
+        </div>
+        <div class="logo print-logo"></div>
+        <div style="clear:both"></div>
+        <div class="print-accounting-info">
+            <table class="meta">
+                <tbody>
+                    <tr>
+                        <td class="meta-head">
+                            @Html.Label("Requisition #")
+                        </td>
+                        <td>
+                            <div>
+                                @Html.DisplayFor(model => model.RequisitionId)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="meta-head">
+                            @Html.LabelFor(model => model.Date_Created)
+                        </td>
+                        <td>
+                            <div>
+                                @Html.DisplayFor(model => model.Date_Created)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="meta-head">
+                            <label>Total</label>
+                        </td>
+                        <td>
+                            <div>
+                                <label>@requisitionTotal $</label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="requisition-print-view">
+            <table class="meta">
+                <tbody>
+                    <tr>
+                        <td class="meta-head">
+                            @Html.LabelFor(model => model.Account.Department.Division.Name)
+                        </td>
+                        <td>
+                            <div>
+                                @Html.DisplayFor(model => model.Account.Department.Division.Name)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="meta-head">
+                            @Html.LabelFor(model => model.Account.Department.Name)
+                        </td>
+                        <td>
+                            <div>
+                                @Html.DisplayFor(model => model.Account.Department.Name)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="meta-head">
+                            @Html.LabelFor(model => model.Account.String)
+                        </td>
+                        <td>
+                            <div>
+                                @Html.DisplayFor(model => model.Account.String)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="meta-head">
+                            @Html.LabelFor(model => model.Account.Name)
+                        </td>
+                        <td>
+                            <div>
+                                @Html.DisplayFor(model => model.Account.Name)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="meta-head">
+                            @Html.LabelFor(model => model.Account.Fund.Number)
+                        </td>
+                        <td>
+                            <div>
+                                @Html.DisplayFor(model => model.Account.Fund.Number)
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <table id="items">
+            <thead>
+                <tr>
+                    <th>Category Number</th>
+                    <th>Category</th>
+                    <th colspan="2">Description</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    @Html.EditorFor(x => item, "PrintItems")
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

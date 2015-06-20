@@ -1,0 +1,35 @@
+﻿@model IdentitySample.Models.EmailConfirmationViewModel
+@{
+    ViewBag.Title = "Confirm Your Email";
+}
+
+<p class="text-info">
+    Please check your email and confirm your email address.
+</p>
+
+@using (Html.BeginForm("SendConfirm", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="box">
+
+        <p class="register-description">If you haven't received an email from us, you can request it again using the form below:</p>
+
+        <div class="login-aligner">
+            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+
+            <span class="form-input">
+                @Html.TextBoxFor(m => m.Email, new { @class = "inp-b", autocomplete = "off", spellcheck = "false" })
+            </span>
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <input type="submit" value="Send" name="sendconfirm" class="btn-mnu btn-default" />
+
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

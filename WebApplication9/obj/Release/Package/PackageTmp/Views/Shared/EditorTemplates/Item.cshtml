@@ -1,0 +1,68 @@
+﻿@model WebApplication9.Data.Item
+@using WebApplication9.Data.Helpers
+
+@{
+    var itemTotal = Model.Quantity * Model.Price;
+}
+<div class="requisition-item-content">
+    <div class="aligner">
+        <div class="item-left">
+            <div class="rmi row-main-inline">
+                @Html.LabelFor(model => model.ItemCategory.Number)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => model.ItemCategory.Number)
+                </div>
+            </div>
+
+            <div class="rmi row-main-inline">
+                @Html.LabelFor(model => model.ItemCategory.Name)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => model.ItemCategory.Name)
+                </div>
+            </div>
+            @if (Model.BuyFrom != null)
+            {
+                <div class="rmi row-main-inline">
+                    @Html.LabelFor(model => model.BuyFrom)
+                    <div class="requisition-detail-content">
+                        @Html.DisplayFor(model => model.BuyFrom)
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="rmi row-main-inline">
+            @Html.LabelFor(model => model.Quantity)
+            <div class="requisition-detail-content">
+                @Html.DisplayFor(model => model.Quantity)
+            </div>
+        </div>
+        <div class="rmi row-main-inline">
+            @Html.LabelFor(model => model.Price)
+            <div class="requisition-detail-content">
+                @Html.DisplayFor(model => model.Price)
+            </div>
+        </div>
+        <div class="rmi row-main-inline">
+            <label>Total</label>
+            <div class="requisition-detail-content">
+                <label>@itemTotal $</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="rmi row-main-inline block">
+        @Html.LabelFor(model => model.Description)
+        <div class="requisition-detail-content">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </div>
+    <div class="rmi row-main-inline block" id="rr">
+        @Html.LabelFor(model => model.Just_Statement)
+        <div class="requisition-detail-content">
+            @Html.DisplayFor(model => model.Just_Statement)
+        </div>
+    </div>
+
+    @Html.Action("Attachments", new { @id = Model.ItemId })
+</div>

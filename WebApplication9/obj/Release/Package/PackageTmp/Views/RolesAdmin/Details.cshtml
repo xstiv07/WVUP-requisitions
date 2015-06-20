@@ -1,0 +1,59 @@
+﻿@model WebApplication9.Data.MyRole
+@section AddToHead{
+    @Styles.Render("~/Content/datatables")
+}
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+<table class="data-table display" id="data-table">
+    <thead>
+        <tr>
+            <th>
+                List of users in this role
+            </th>
+            <th class="datatable-nosort"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in ViewBag.Users)
+        {
+            <tr>
+                <td>
+                    @item.UserName
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "UsersAdmin", new { id = item.Id }, null)
+                    @Html.ActionLink("Details", "Details", "UsersAdmin", new { id = item.Id }, null)
+                    @Html.ActionLink("Delete", "Delete", "UsersAdmin", new { id = item.Id }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewBag.UserCount == 0)
+{
+    <p>No users found in this role.</p>
+}
+
+<div class="configure-control">
+    <a href="@Url.Action("Index", "RolesAdmin")">
+        <span>
+            <span class="btn-mnu btn-custom">Back To List</span>
+        </span>
+    </a>
+</div>
+
+@Scripts.Render("~/bundles/datatables")
+
+<script>
+    $(document).ready(function () {
+        $('#data-table').DataTable({
+            columnDefs: [{
+                targets: "datatable-nosort",
+                orderable: false
+            }]
+        });
+    });
+</script>

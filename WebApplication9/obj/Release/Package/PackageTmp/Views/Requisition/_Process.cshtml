@@ -1,0 +1,42 @@
+﻿@model WebApplication9.Data.ReqAdd
+
+<div class="container-item holder1">
+    <div class="row-main-inline">
+        <span>*</span>
+        @Html.LabelFor(model => model.CC_Holder_Name, new { @class = "control-label" })
+        <div class="row-contents">
+            @Html.TextBoxFor(model => model.CC_Holder_Name, new { @class = "custom-input form-control inp-b", autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.CC_Holder_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row-main-inline">
+        <span>*</span>
+        @Html.LabelFor(model => model.Date_Ordered, new { @class = "control-label" })
+        <div class="row-contents">
+            @Html.EditorFor(model => model.Date_Ordered)
+            @Html.ValidationMessageFor(model => model.Date_Ordered, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row-main-inline">
+        @Html.LabelFor(model => model.Date_Expected_Delivery, new { @class = "control-label" })
+        <div class="row-contents">
+            @Html.EditorFor(model => model.Date_Expected_Delivery)
+            @Html.ValidationMessageFor(model => model.Date_Expected_Delivery, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row-main-inline">
+        @Html.LabelFor(model => model.Purchase_Order_Num, new { @class = "control-label" })
+        <div class="row-contents">
+            @Html.TextBoxFor(model => model.Purchase_Order_Num, new { @class = "custom-input form-control inp-b", autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.Purchase_Order_Num, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row-main-inline">
+        @Html.LabelFor(model => model.Comments, new { @class = "control-label" })
+
+        <div class="row-contents">
+            @Html.TextAreaFor(model => model.Comments, new { @class = "textarea-custom custom-input form-control inp-b" })
+            @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger valid" })
+        </div>
+    </div>
+</div>

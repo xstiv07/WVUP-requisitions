@@ -1,0 +1,79 @@
+﻿@model WebApplication9.Data.Item
+
+<div class="container-item holder1" id="reqToCount">
+
+    @using (Html.BeginCollectionItem("Items"))
+    {
+        <span class="icono-trash remove-item"></span>
+        <div class="row-main-inline">
+            <span>*</span>
+            @Html.LabelFor(model => model.ItemCategory.Name, new { @class = "control-label" })
+            <div class="row-contents">
+                @Html.DropDownListFor(model => model.ItemCategoryId, new SelectList(ViewBag.ItemCategories, "ItemCategoryId", "Name"), "---Please Select", new { @class = "custom-input  form-control" })
+                @Html.ValidationMessageFor(model => model.ItemCategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row-main-inline">
+            @Html.LabelFor(model => model.BuyFrom, new { @class = "control-label" })
+
+            <div class="row-contents">
+                @Html.TextBoxFor(model => model.BuyFrom, new { @class = "custom-input form-control inp-b", Value = "", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.BuyFrom, "", new { @class = "text-danger valid" })
+            </div>
+        </div>
+
+        <div class="row-main-inline">
+            <span>*</span>
+            @Html.LabelFor(model => model.Quantity, new { @class = "control-label" })
+            <div class="row-contents">
+                @Html.TextBoxFor(model => model.Quantity, new { @class = "qty custom-input form-control inp-b", Value = "", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger valid" })
+            </div>
+        </div>
+
+        <div class="row-main-inline">
+            <span>*</span>
+            @Html.LabelFor(model => model.Price, new { @class = "control-label" })
+
+            <div class="row-contents">
+                @Html.TextBoxFor(model => model.Price, new { @class = "price custom-input form-control inp-b", @id = "zzz", Value = "", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger valid" })
+            </div>
+        </div>
+
+        <div class="container-item">
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+
+                <div class="row-contents">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "textarea-custom custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger valid" })
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Just_Statement, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextAreaFor(model => model.Just_Statement, new { @class = "custom-input form-control textarea-custom inp-b" })
+                    @Html.ValidationMessageFor(model => model.Just_Statement, "", new { @class = "text-danger valid" })
+                </div>
+            </div>
+        </div>
+        <div class="totalItem">
+            @Html.Label("Total", new { @class = "" })
+            @Html.Label("$0", new { @class = "totalEach" })
+        </div>
+
+        <input type="file" name="@Html.IdFor(model => model.ItemId)" id="fileInput" data-val-required="Three attached price quotes are required for items over $3000" multiple />
+        <span class="field-validation-valid text-danger valid error" data-valmsg-replace="true" data-valmsg-for="@Html.IdFor(model => model.ItemId)"></span>
+
+        <div id="attchmnt"></div>
+
+        @Html.HiddenFor(x => x.Unique, new { @Value = Html.IdFor(model => model.ItemId).ToString() });
+    }
+</div>
+
+<script src="~/Scripts/_js_RemoveItem.js" type="text/javascript"></script>

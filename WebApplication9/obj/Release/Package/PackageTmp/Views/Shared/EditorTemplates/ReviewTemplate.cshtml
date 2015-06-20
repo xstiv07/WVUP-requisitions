@@ -1,0 +1,21 @@
+﻿@model PagedList.IPagedList<WebApplication9.Data.Requisition>
+
+@foreach (var requisition in Model)
+{
+    <div class="review-block">
+        @Html.EditorFor(model => requisition)
+
+        <div class="custom-box">
+            <div class="dept-commentary">
+                @Html.TextAreaFor(model => requisition.Explanation, new { @class = "dept-commentary-text-area textarea-custom custom-input form-control inp-b", @id = "text" + requisition.RequisitionId, @placeholder = "Your comment. Minimum 10 characters required." })
+            </div>
+            <div class="approve" id="approve" data-attr="@requisition.RequisitionId">
+                <span class="icono-checkCircle"></span>
+            </div>
+            <div class="reject" id="reject" data-attr="@requisition.RequisitionId">
+                <span class="icono-crossCircle"></span>
+            </div>
+        </div>
+
+    </div>
+}

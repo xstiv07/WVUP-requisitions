@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IdentityConnection-Web.config Connection String" description="IdentityConnection Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:m049p5oq6t.database.windows.net,1433;Database=backup;User ID=xstiv07@m049p5oq6t;Password=veryS1mpl3;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Stas\\Desktop\\test\\WebApplication9\\WebApplication9\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='IdentityConnection']/@connectionString" />
+  </parameter>
+  <parameter name="Requisition1Entities-Web.config Connection String" description="Requisition1Entities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Project_Requisition.csdl|res://*/Project_Requisition.ssdl|res://*/Project_Requisition.msl;provider=System.Data.SqlClient;provider connection string=&quot;Server=tcp:m049p5oq6t.database.windows.net,1433;Database=backup;User ID=xstiv07@m049p5oq6t;Password=veryS1mpl3;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Stas\\Desktop\\test\\WebApplication9\\WebApplication9\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Requisition1Entities']/@connectionString" />
+  </parameter>
+</parameters>

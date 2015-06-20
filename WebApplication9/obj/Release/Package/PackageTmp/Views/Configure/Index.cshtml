@@ -1,0 +1,33 @@
+﻿<div class="configure-nav">
+
+    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <a href="@Url.Action("Index", "RolesAdmin")">
+            <div class="configure-x">Roles</div>
+        </a>
+
+        <a href="@Url.Action("Index", "UsersAdmin")">
+            <div class="configure-x">Users</div>
+        </a>
+    }
+
+    <a href="@Url.Action("ItemCategories")">
+        <div class="configure-x">Line Item Categories</div>
+    </a>
+
+    <a href="@Url.Action("Departments")">
+        <div class="configure-x">Departments</div>
+    </a>
+
+    <a href="@Url.Action("Divisions")">
+        <div class="configure-x">Divisions</div>
+    </a>
+
+    <a href="@Url.Action("Funds")">
+        <div class="configure-x">Funds</div>
+    </a>
+
+    <a href="@Url.Action("Accounts")">
+        <div class="configure-x">Accounting Information</div>
+    </a>
+</div>

@@ -1,0 +1,73 @@
+﻿@model IdentitySample.Models.RegisterViewModel
+
+<section id="registerForm">
+    <span id="close">Close</span>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off", id = "register" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="box">
+            <h4>CREATE AN ACCOUNT</h4>
+            <p class="register-description down">If you are an employee of West Virginia University at Parkersburg, create an account using your WVUP email address.</p>
+
+            <div class="login-aligner">
+                @Html.LabelFor(m => m.First_Name, new { @class = "control-label" })
+                <span class="form-input">
+                    @Html.TextBoxFor(m => m.First_Name, new { @class = "inp-b", autocomplete = "off", spellcheck = "false" })
+                </span>
+                @Html.ValidationMessageFor(m => m.First_Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="login-aligner">
+                @Html.LabelFor(m => m.Last_Name, new { @class = "control-label" })
+                <span class="form-input">
+                    @Html.TextBoxFor(m => m.Last_Name, new { @class = "inp-b", autocomplete = "off" })
+                </span>
+                @Html.ValidationMessageFor(m => m.Last_Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="login-aligner">
+                @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                <span class="form-input">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "inp-b", autocomplete = "off", placeholder = "jdoe@wvup.edu", spellcheck = "false" })
+                </span>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="login-aligner">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                <span class="form-input">
+                    @Html.PasswordFor(m => m.Password, new { @class = "inp-b" })
+                </span>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="login-aligner">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                <span class="form-input">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "inp-b", autocomplete = "off" })
+                </span>
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <input type="submit" id="submitRegister" value="Register" name="register" class="btn-mnu btn-default" />
+        </div>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    $(document).ready(function () {
+        $('#close').click(function () {
+            $('#qv-pop-up').slideUp("slow")
+        });
+        jQuery.validator.unobtrusive.parse();
+        jQuery.validator.unobtrusive.parse("#register");
+    });
+</script>

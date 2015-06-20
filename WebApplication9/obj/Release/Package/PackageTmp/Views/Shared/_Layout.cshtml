@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WVUP Online Purchase Requisitons </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
+</head>
+<body>
+    <div class="spinner"></div>
+    @if (Request.IsAuthenticated)
+    {
+        <div class="menu">
+            <div class="row">
+                <ul class="nav cl-effect-12">
+
+                    <li>@Html.ActionLink("New Form", "Create", "Requisition")</li>
+                    <li>@Html.ActionLink("My Requisitions", "MyRequisitions", "Requisition")</li>
+
+                    @if (User.IsInRole("Department Manager") || User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Review as DM", "Review", "Requisition")</li>
+                    }
+                    @if (User.IsInRole("Chief Financial Officer") || User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Review as CFO", "ReviewCFO", "Requisition")</li>
+                    }
+
+                    @if (User.IsInRole("Purchasing Department") || User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Manage", "Manage", "Requisition")</li>
+                        <li>@Html.ActionLink("Ordered", "Ordered", "Requisition")</li>
+                        <li>@Html.ActionLink("Archive", "Completed", "Requisition")</li>
+                    }
+                </ul>
+                <div class="rightSideMenuLinks">
+                    @if (Request.IsAuthenticated && (User.IsInRole("Purchasing Department") || User.IsInRole("Admin")))
+                    {
+                        <a href='@Url.Action("Search", "Requisition")'>
+                            <span class="icono-search"></span>
+                        </a>
+
+                        <a href='@Url.Action("Index", "Configure")'>
+                            <span class="icono-terminal"></span>
+                        </a>
+                    }
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="menu-non-auth">
+            <a href='@Url.Action("Create", "Requisition")'>
+                <span>WVUP Online Purchase Requisitions</span>
+            </a>
+        </div>
+    }
+    <div class="ajax-message"></div>
+    <div class="wrapper">
+        @RenderBody()
+    </div>
+    @{
+        Random random = new Random();
+        int randomCurrency = random.Next(0, 4);
+    }
+    <div class="currency">
+        @if (randomCurrency == 0)
+        {
+            <i class="fa fa-eur fa-5x"></i>
+        }
+        @if (randomCurrency == 1)
+        {
+            <i class="fa fa-usd fa-5x"></i>
+        }
+        @if (randomCurrency == 2)
+        {
+            <i class="fa fa-gbp fa-5x"></i>
+        }
+        @if (randomCurrency == 3)
+        {
+            <i class="fa fa-jpy fa-5x"></i>
+        }
+    </div>
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

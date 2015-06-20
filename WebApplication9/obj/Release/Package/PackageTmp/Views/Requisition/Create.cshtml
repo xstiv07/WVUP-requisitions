@@ -1,0 +1,72 @@
+﻿@model WebApplication9.Data.Requisition
+@{ ViewBag.Title = "Create Requisition"; }
+
+
+@using (Html.BeginForm("Create", "Requisition", FormMethod.Post,
+      new { enctype = "multipart/form-data", @id = "mainForm" }))
+{
+    <table class="flatTable">
+        <tr class="titleTr">
+            <td colspan="5">TOTAL <span id="cool">$0</span></td>
+        </tr>
+        <tr>
+            <td class="headingTr">
+                <span class="required">*</span>@Html.LabelFor(model => model.Account.Department.Division.Name)
+                <div>
+                    @Html.DropDownList("Divisions", new SelectList(ViewBag.Divisions, "Id", "Name"), "---Please Select", new { @class = "custom-input  form-control", @id = "division" })
+                </div>
+            </td>
+
+            <td class="headingTr department">
+                <span class="required">*</span>@Html.LabelFor(model => model.Account.Department.Name)
+                <div>
+                    @Html.DropDownListFor(model => model.DepartmentId, new SelectList(String.Empty, "Value", "Text"), "", new { @class = "custom-input  form-control", @id = "department" })
+                    @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger valid" })
+                </div>
+            </td>
+            <td class="headingTr account">
+                <span class="required">*</span>@Html.LabelFor(model => model.Account.Name)
+                <div>
+                    @Html.DropDownListFor(model => model.AccountId, new SelectList(String.Empty, "Value", "Text"), "", new { @class = "custom-input  form-control", @id = "account" })
+                    @Html.ValidationMessageFor(model => model.AccountId, "", new { @class = "text-danger valid" })
+                </div>
+
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <div id="itemEditor">
+        @if (Model.Items.Count <= 1)
+        {
+            Html.RenderPartial("_ItemEntryEditor", new WebApplication9.Data.Item());
+        }
+        else
+        {
+            foreach (var item in Model.Items)
+            {
+                Html.RenderPartial("_ItemEntryEditor", item);
+            }
+        }
+    </div>
+
+    <div id="addAnother" class="btn-add-item btn-mnu">Add Item</div>
+
+    <div id="reqSubmitBlock">
+        <input type="submit" value="Submit" id="proceed" class="btn-mnu btn-default" />
+
+        <a href='@Url.Action("MyRequisitions", "Requisition")'>
+            <span class="btn-mnu btn-custom" id="cancel">Cancel</span>
+        </a>
+    </div>
+}
+
+@section Scripts {
+    <script type="text/javascript" src="~/Scripts/_js_loadContentCreate.js"></script>
+    <script type="text/javascript" src="~/Scripts/_js_AddAnother.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

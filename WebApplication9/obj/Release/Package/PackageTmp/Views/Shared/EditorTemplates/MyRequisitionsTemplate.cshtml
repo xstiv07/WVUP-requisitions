@@ -1,0 +1,88 @@
+﻿@model PagedList.IPagedList<WebApplication9.Data.Requisition>
+@using WebApplication9.Data.Helpers
+
+@foreach (var requisition in Model)
+{
+    if (requisition.Status == StatusEnum.Submitted)
+    {
+        <p class="requisition-void" id="req-void_@requisition.RequisitionId" data-attr='@requisition.RequisitionId'>Void</p>
+    }
+
+    @Html.EditorFor(model => requisition)
+
+    <div class="user-explanation-block">
+        @if (requisition.CFO_Explanation != null)
+        {
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => requisition.CFO_Explanation)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => requisition.CFO_Explanation)
+                </div>
+            </div>
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => requisition.CFO_Decision_By)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => requisition.CFO_Decision_By)
+                </div>
+            </div>
+        }
+        @if (requisition.Explanation != null)
+        {
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => requisition.Explanation)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => requisition.Explanation)
+                </div>
+            </div>
+            <div class="left rmi row-main-inline">
+                @Html.LabelFor(model => requisition.Decision_By)
+                <div class="requisition-detail-content">
+                    @Html.DisplayFor(model => requisition.Decision_By)
+                </div>
+            </div>
+        }
+    </div>
+
+    if (requisition.Status == StatusEnum.Submitted)
+    {
+        <div class="progress">
+            <div class="first-step" id="prog_@requisition.RequisitionId"></div>
+        </div>
+    }
+    else if (requisition.Status == StatusEnum.Approved)
+    {
+        <div class="progress">
+            <div class="second-step" id="prog_@requisition.RequisitionId"></div>
+        </div>
+    }
+    else if (requisition.Status == StatusEnum.Ordered)
+    {
+        <div class="progress">
+            <div class="third-step" id="prog_@requisition.RequisitionId"></div>
+        </div>
+    }
+    else if (requisition.Status == StatusEnum.Complete)
+    {
+        <div class="progress">
+            <div class="final-step" id="prog_@requisition.RequisitionId"></div>
+        </div>
+    }
+    else if (requisition.Status == StatusEnum.Aproved_CFO)
+    {
+        <div class="progress">
+            <div class="cfo-approved-step" id="prog_@requisition.RequisitionId"></div>
+        </div>
+    }
+    else if (requisition.Status == StatusEnum.Void)
+    {
+        <div class="progress">
+            <div class="void"></div>
+        </div>
+    }
+    else
+    {
+        <div class="progress">
+            <div class="rejected"></div>
+        </div>
+    }
+}

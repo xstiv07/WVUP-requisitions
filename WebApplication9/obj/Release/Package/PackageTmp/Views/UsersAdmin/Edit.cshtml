@@ -1,0 +1,57 @@
+﻿@model IdentitySample.Models.EditUserViewModel
+
+@{
+    ViewBag.Title = "Edit User";
+}
+
+<h2>Edit User</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="configure-create-account">
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.Label("Roles", new { @class = "control-label" })
+                <div class="row-contents">
+                    <span class=" col-md-10">
+                        @foreach (var item in Model.RolesList)
+                        {
+                            <input type="checkbox" name="selectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
+                            @Html.Label(item.Value, new { @class = "control-label" })
+                        }
+                    </span>
+                </div>
+            </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.UserName, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "custom-input form-control inp-b" })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="configure-control">
+            <span>
+                <input type="submit" value="Save" class="btn-mnu btn-default" />
+            </span>
+            <a href="@Url.Action("Index")">
+                <span>
+                    <span class="btn-mnu btn-custom">Back To List</span>
+                </span>
+            </a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
