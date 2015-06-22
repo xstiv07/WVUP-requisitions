@@ -62,6 +62,15 @@
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            <div class="row-main-inline">
+                <span>*</span>
+                @Html.LabelFor(model => model.Status, new { @class = "control-label" })
+                <div class="row-contents">
+                    @Html.EnumDropDownListFor(model => model.Status, new { @class = "custom-input  form-control", @id = "account" })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
 
         <div class="configure-control">

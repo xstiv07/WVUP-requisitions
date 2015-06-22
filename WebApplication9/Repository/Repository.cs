@@ -18,14 +18,19 @@ namespace WebApplication9.Repository
             this.repo = db;
         }
 
-        public List<ItemCategory> GetItemCategories()
+        public List<ItemCategory> GetActiveItemCategories()
         {
             return repo.ItemCategories.Where(x => x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
         }
 
+        public List<ItemCategory> GetItemCategories()
+        {
+            return repo.ItemCategories.ToList();
+        }
+
         public List<Division> GetDivisions()
         {
-            return repo.Divisions.Where(x => x.Status == ConfigureStatusEnum.Active).OrderBy(x => x.Name).ToList();
+            return repo.Divisions.ToList();
         }
 
         public void AddRequisition(Requisition requisition)
@@ -204,9 +209,9 @@ namespace WebApplication9.Repository
             repo.SaveChanges();
         }
 
-        public ItemCategory GetItemCategory(ItemCategory model)
+        public ItemCategory GetItemCategory(int id)
         {
-            return repo.ItemCategories.Find(model.ItemCategoryId);
+            return repo.ItemCategories.Find(id);
         }
 
         public List<Fund> GetActiveFunds()
@@ -219,12 +224,6 @@ namespace WebApplication9.Repository
             return repo.Divisions.Where(x => x.Status == ConfigureStatusEnum.Active).ToList();
         }
 
-
-        public ItemCategory GetItemCategory(int p)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Department> GetActiveDivsionDepartments(int id)
         {
             return repo.Departments.Where(x => x.DivisionId == id && x.Status == ConfigureStatusEnum.Active).ToList();
@@ -234,6 +233,34 @@ namespace WebApplication9.Repository
         public IQueryable<Requisition> GetCurrentUserRequisitions(MyUser user)
         {
             return repo.Requisitions.Where(x => x.User_Id == user.Id);
+        }
+
+
+        public void AddFiles(HttpRequestBase Request, MyUser user, Requisition requisition)
+        {
+            for (int i = 0; i < Request.Files.Count; i++) // getting all files from the request and saving them to the db
+            {
+                HttpPostedFileBase file = Request.Files[i];
+
+                // exists to tie together item and its files - based on the unique field in the db that is populated by the guid in the view
+                string unq = Request.Files.AllKeys[i].ToString();
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}Uploads\\" + user.First_Name + "_" + user.Last_Name, System.Web.HttpContext.Current.Server.MapPath(@"\")));
+                    string pathString = System.IO.Path.Combine(originalDirectory.ToString(), requisition.RequisitionId.ToString());
+                    var fileName1 = System.IO.Path.GetFileName(file.FileName);
+                    bool isExists = System.IO.Directory.Exists(pathString);
+
+                    if (!isExists)
+                        System.IO.Directory.CreateDirectory(pathString);
+                    var path = string.Format("{0}\\{1}", pathString, file.FileName);
+                    file.SaveAs(path);
+
+                    this.AddFile(unq, fileName1, requisition, user);
+                }
+            }
+            this.Save();
         }
     }
 }

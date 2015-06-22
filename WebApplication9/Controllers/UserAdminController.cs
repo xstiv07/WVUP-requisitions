@@ -23,8 +23,9 @@ namespace IdentitySample.Controllers
 
         IRepository repo;
 
-        public UsersAdminController()
+        public UsersAdminController(IRepository repo)
         {
+            this.repo = repo;
         }
 
         public UsersAdminController(MyUserManager userManager, MyRoleManager roleManager)

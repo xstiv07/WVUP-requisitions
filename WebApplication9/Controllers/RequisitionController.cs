@@ -48,13 +48,12 @@ namespace WebApplication9.Controllers
             private set{ _userManager = value; }
         }
 
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
-            var user = await GetCurrentUser();
             var req = new Requisition();
 
-            ViewBag.Divisions = repo.GetDivisions();
-            ViewBag.ItemCategories = repo.GetItemCategories();
+            ViewBag.Divisions = repo.GetActiveDivisions();
+            ViewBag.ItemCategories = repo.GetActiveItemCategories();
 
             iCategories = ViewBag.ItemCategories;
 
@@ -69,7 +68,7 @@ namespace WebApplication9.Controllers
             {
                 var user = await GetCurrentUser();
                 TimeZoneInfo easternTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-                TimeSpan offset = easternTimeZone.GetUtcOffset(DateTime.Now); //used for appharbor to fix the date offset
+                TimeSpan offset = easternTimeZone.GetUtcOffset(DateTime.Now); //fixes the date offset
 
                 requisition.CFO_approval = false; // trigger for CFO approval
 
@@ -78,6 +77,8 @@ namespace WebApplication9.Controllers
                 requisition.Status = StatusEnum.Submitted;
                 requisition.Date_Created = DateTime.Now.Add(offset);
 
+                //to-do
+                //need to encapsulate this business logic to a service layer
                 foreach (var item in requisition.Items) //checking every item in the req to see if any are over the limit
                 {
                     if (item.Price * item.Quantity > approvalLimit)
@@ -86,39 +87,18 @@ namespace WebApplication9.Controllers
 
                 repo.AddRequisition(requisition);
                 
-                for (int i = 0; i < Request.Files.Count; i++) // getting all files from the request and saving them to the db
-                {
-                    HttpPostedFileBase file = Request.Files[i];
+                repo.AddFiles(Request, user, requisition);
 
-                    // exists to tie together item and its files - based on the unique field in the db that is populated by the guid in the view
-                    string unq = Request.Files.AllKeys[i].ToString();
-
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        var originalDirectory = new DirectoryInfo(string.Format("{0}Uploads\\" + user.First_Name + "_" + user.Last_Name, Server.MapPath(@"\")));
-                        string pathString = Path.Combine(originalDirectory.ToString(), requisition.RequisitionId.ToString());
-                        var fileName1 = Path.GetFileName(file.FileName);
-                        bool isExists = Directory.Exists(pathString);
-
-                        if (!isExists)
-                            Directory.CreateDirectory(pathString);
-                        var path = string.Format("{0}\\{1}", pathString, file.FileName);
-                        file.SaveAs(path);
-
-                        repo.AddFile(unq, fileName1, requisition, user);
-                    }
-                }
-                repo.Save();
-
-                _requis = requisition.RequisitionId;
+                _requis = requisition.RequisitionId; //holds submitted requisition to refer in the display view
 
                 SendEmailNotification(requisition, user); //sends email to the DM that requisition from user x was submitted
 
                 return RedirectToAction("Display");
             }
-            //will fire if for some reason javascript validation didn't work and user was able to submitt invalid form to the server
-            ViewBag.Divisions = repo.GetDivisions();
-            ViewBag.ItemCategories = repo.GetItemCategories();
+
+            ViewBag.Divisions = repo.GetActiveDivisions();
+            ViewBag.ItemCategories = repo.GetActiveItemCategories();
+
             return View(requisition);
         }
 

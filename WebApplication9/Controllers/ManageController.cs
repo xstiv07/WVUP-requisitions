@@ -17,12 +17,13 @@ namespace IdentitySample.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        //Requisition1Entities db = new Requisition1Entities();
-
         private IRepository repo;
+
         private MyUserManager _userManager;
-        public ManageController()
+
+        public ManageController(IRepository repo)
         {
+            this.repo = repo;
         }
 
         public ManageController(MyUserManager userManager)

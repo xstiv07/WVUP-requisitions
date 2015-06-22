@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using WebApplication9.Data;
 namespace WebApplication9.Repository
 {
@@ -46,6 +47,8 @@ namespace WebApplication9.Repository
 
         List<Division> GetDivisions();
 
+        List<ItemCategory> GetActiveItemCategories();
+
         List<ItemCategory> GetItemCategories();
 
         IQueryable<Requisition> GetAllRequisitions();
@@ -76,12 +79,14 @@ namespace WebApplication9.Repository
 
         void AddItemCategory(ItemCategory model);
 
-        ItemCategory GetItemCategory(int p);
+        ItemCategory GetItemCategory(int id);
 
         List<Fund> GetActiveFunds();
 
         List<Division> GetActiveDivisions();
 
         List<Department> GetActiveDivsionDepartments(int id);
+
+        void AddFiles(HttpRequestBase Request, MyUser user, Requisition requisition);
     }
 }

@@ -60,10 +60,18 @@ namespace WebApplication9.Controllers
             if (ModelState.IsValid)
             {
                 var oldAccount = repo.GetAccount(model.Id);
-                oldAccount.Status = ConfigureStatusEnum.Inactive;
 
-                repo.AddAccount(model);
-                
+                if (model.Status != oldAccount.Status)
+                {
+                    oldAccount.Status = model.Status;
+                    repo.Save();
+                }
+                else
+                {
+                    oldAccount.Status = ConfigureStatusEnum.Inactive;
+                    repo.AddAccount(model);
+                }
+
                 return RedirectToAction("Accounts");
             }
             GetAccountData();
@@ -110,16 +118,27 @@ namespace WebApplication9.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditDepartment(Department model)
         {
+
             if (ModelState.IsValid)
             {
                 //find an existing department and set its status to inactive
                 var oldDepartment = repo.GetDepartment(model.Id);
-                oldDepartment.Status = ConfigureStatusEnum.Inactive;
 
-                repo.AddDepartment(model);
-               
+                if (model.Status != oldDepartment.Status) // if the status has changed - set the status of a department to the selected one
+                {
+                    oldDepartment.Status = model.Status;
+                    repo.Save();
+                }
+                else // if we are editing any department info other than the status
+                //set the current department status to incative and create an active department with new parameters
+                {
+                    oldDepartment.Status = ConfigureStatusEnum.Inactive;
+                    repo.AddDepartment(model);
+                }
+
                 return RedirectToAction("Departments");
             }
+
             ViewBag.Divisions = repo.GetDivisions();
             ViewBag.Users = repo.GetUsers();
             return View(model);
@@ -159,12 +178,19 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var oldFund = repo.GetFund(model.Id);
-                oldFund.Status = ConfigureStatusEnum.Inactive;
 
-                repo.AddFunds(model);
-          
+                if (model.Status != oldFund.Status)
+                {
+                    oldFund.Status = model.Status;
+                    repo.Save();
+                }
+                else
+                {
+                    oldFund.Status = ConfigureStatusEnum.Inactive;
+                    repo.AddFunds(model);
+                }
+
                 return RedirectToAction("Funds");
             }
             return View(model);
@@ -207,13 +233,21 @@ namespace WebApplication9.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditDivision(Division model)
         {
+
             if (ModelState.IsValid)
             {
                 var oldDivision = repo.GetDivision(model.Id);
 
-                oldDivision.Status = ConfigureStatusEnum.Inactive;
-
-                repo.AddDivision(model);
+                if (model.Status != oldDivision.Status)
+                {
+                    oldDivision.Status = model.Status;
+                    repo.Save();
+                }
+                else
+                {
+                    oldDivision.Status = ConfigureStatusEnum.Inactive;
+                    repo.AddDivision(model);
+                }
 
                 return RedirectToAction("Divisions");
             }
@@ -286,12 +320,19 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                //find an existing department and set its status to inactive
                 var oldItemCategory = repo.GetItemCategory(model.ItemCategoryId);
-                oldItemCategory.Status = ConfigureStatusEnum.Inactive;
 
-                repo.AddItemCategory(model);
-                
+                if (model.Status != oldItemCategory.Status)
+                {
+                    oldItemCategory.Status = model.Status;
+                    repo.Save();
+                }
+                else
+                {
+                    oldItemCategory.Status = ConfigureStatusEnum.Inactive;
+                    repo.AddItemCategory(model);
+                }
+
                 return RedirectToAction("ItemCategories");
             }
             return View(model);
